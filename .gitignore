@@ -38,3 +38,5 @@ build/
 pom.xml
 mvnw
 mvnw.cmd
+
+database.properties

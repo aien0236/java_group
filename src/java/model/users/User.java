@@ -1,4 +1,4 @@
-package org.example.grouppro.classes.users;
+package model.users;
 
 public abstract class User {
     protected String firstName;
@@ -17,7 +17,7 @@ public abstract class User {
 
     }
 
-    public User(String firstName, String lastName, String email, String password, User.USER_TYPES USER_TYPE) {
+    public User(String firstName, String lastName, String email, String password, USER_TYPES USER_TYPE) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
