@@ -8,28 +8,49 @@
  */
 package dataaccesslayer;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DataSource {
 
-    private Connection connection = null;
-    private String url = "jdbc:mysql://localhost:3306/fwrp?useSSL=false&allowPublicKeyRetrieval=true";
-    private String username = "james";
-    private String password = "poophead";
+    private static Connection connection = null;
+    private static String url = null;
+    private static String username = null;
+    private static String password = null;
 
     public DataSource() {
+    }
+
+    public static void loadProperties() {
+        Properties props = new Properties();
+        try (InputStream in = ClassLoader.getSystemResourceAsStream("database.properties")) {
+            props.load(in);
+        } catch (Exception e) {
+            System.out.println("Failed to load database properties");
+            e.printStackTrace();
+        }
+        url = props.getProperty("url");
+        username = props.getProperty("username");
+        password = props.getProperty("password");
+
+
     }
 
     /*
  * Only use one connection for this application, prevent memory leaks.
      */
-    public Connection createConnection() throws SQLException {
+    public static Connection createConnection() throws SQLException {
         try {
             if (connection != null) {
                 System.out.println("Cannot create new connection, one exists already");
             } else {
+                if (url == null) {
+                    loadProperties();
+                }
                 connection = DriverManager.getConnection(url, username, password);
             }
         } catch (SQLException ex) {

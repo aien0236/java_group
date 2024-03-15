@@ -1,4 +1,4 @@
-package org.example.grouppro.classes.users;
+package model.users;
 
 public class Charity extends User{
 }
