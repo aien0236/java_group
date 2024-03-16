@@ -1,8 +1,7 @@
 package model.users;
 
 public abstract class User {
-    protected String firstName;
-    protected String lastName;
+    protected String username;
     protected String email;
     protected String password;
     protected String userType;
@@ -17,28 +16,19 @@ public abstract class User {
 
     }
 
-    public User(String firstName, String lastName, String email, String password, USER_TYPES USER_TYPE) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String username, String email, String password, String userType) {
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.userType = "" + USER_TYPE;
+        this.userType = userType;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -65,5 +55,13 @@ public abstract class User {
         this.userType = userType;
     }
 
+    /**
+     * Returns a string representation of the user object. Can be used for testing purposes.
+     *
+     * @return
+     */
+    public String toString() {
+        return "User: [ " + username + ", " + email + ", " + password + ", " + userType + " ]";
+    }
 }
 

@@ -18,16 +18,16 @@ import java.util.Properties;
 public class DataSource {
 
     private static Connection connection = null;
-    private static String url = null;
-    private static String username = null;
-    private static String password = null;
+    private static String url = "jdbc:mysql://localhost:3306/fwrp?useSSL=false&allowPublicKeyRetrieval=true";
+    private static String username = "james";
+    private static String password = "poophead";
 
     public DataSource() {
     }
 
     public static void loadProperties() {
         Properties props = new Properties();
-        try (InputStream in = ClassLoader.getSystemResourceAsStream("database.properties")) {
+        try (InputStream in = ClassLoader.getSystemResourceAsStream("/resources/database.properties")) {
             props.load(in);
         } catch (Exception e) {
             System.out.println("Failed to load database properties");
@@ -48,9 +48,7 @@ public class DataSource {
             if (connection != null) {
                 System.out.println("Cannot create new connection, one exists already");
             } else {
-                if (url == null) {
-                    loadProperties();
-                }
+
                 connection = DriverManager.getConnection(url, username, password);
             }
         } catch (SQLException ex) {
