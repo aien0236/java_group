@@ -33,6 +33,24 @@
         <servlet-name>controller.RetailerServlet</servlet-name>
         <url-pattern>/RetailerServlet</url-pattern>
     </servlet-mapping>
+    <!-- Retailer Edit Food Servlet -->
+    <servlet>
+        <servlet-name>controller.retailer.EditFoodServlet</servlet-name>
+        <servlet-class>controller.retailer.EditFoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.retailer.EditFoodServlet</servlet-name>
+        <url-pattern>/EditFoodServlet</url-pattern>
+    </servlet-mapping>
+    <!-- Retailer Donate Food Servlet -->
+    <servlet>
+        <servlet-name>controller.retailer.DonateFoodServlet</servlet-name>
+        <servlet-class>controller.retailer.DonateFoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.retailer.DonateFoodServlet</servlet-name>
+        <url-pattern>/DonateFoodServlet</url-pattern>
+    </servlet-mapping>
     <!-- Organization Servlet Routing Table -->
     <servlet>
         <servlet-name>controller.OrganizationServlet</servlet-name>

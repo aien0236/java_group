@@ -6,7 +6,7 @@ package controller;
  */
 
 import businesslayer.FoodsBusinessLogic;
-import model.Food;
+import model.food.Food;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class OrganizationServlet extends HttpServlet {
@@ -22,10 +21,10 @@ public class OrganizationServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,11 +32,7 @@ public class OrganizationServlet extends HttpServlet {
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
         List<Food> foods = null;
 
-        try {
-            foods = foodBusinessLogic.getFoodsWithFlag("donation");
-        } catch (SQLException ex) {
-            log(ex.getMessage());
-        }
+        foods = foodBusinessLogic.getFoodsWithFlag("donation");
 
         request.setAttribute("foods", foods);
 
@@ -49,10 +44,10 @@ public class OrganizationServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

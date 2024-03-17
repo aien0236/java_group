@@ -12,7 +12,8 @@ class DataSourceTest {
     @Test
     public void testConnection() {
         try {
-            Connection conn = DataSource.createConnection();
+            DataSource ds = new DataSource();
+            Connection conn = ds.createConnection();
             assertNotNull(conn, "Connection shouldn't be null");
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();

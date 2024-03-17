@@ -5,15 +5,18 @@ package controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import businesslayer.FoodsBusinessLogic;
 import businesslayer.UserBusinessLogic;
 import dataaccesslayer.User.UserCookies;
-import dataaccesslayer.User.UserDaoImpl;
+import model.food.Food;
 import model.users.User;
 import model.users.UserFactory;
 import validation.Message;
 import validation.UserValidation;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 
         // create local user object
         User user = UserFactory.createUser(userName, email, password, userType);
-
+        FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
         if ("signup".equals(action)) {
             // create local user, then add it to database
 
@@ -92,6 +95,8 @@ public class LoginServlet extends HttpServlet {
                 // redirect to user page based on user type
                 switch (userType) {
                     case "Retailer":
+                        List<Food> foods = new ArrayList<Food>();
+                        request.setAttribute("foods", foods);
                         request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
                         break;
                     case "Organization":
@@ -108,6 +113,7 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         } else if ("login".equals(action)) {
+
             User userDB = userBusinessLogic.getUser(user);
             // User does not exist in database, redirect back to login with error message
             if (userDB == null) {
@@ -118,6 +124,10 @@ public class LoginServlet extends HttpServlet {
             UserCookies.createSessionCookies(userDB.getUsername(), userDB.getEmail(), response);
             switch (userType) {
                 case "Retailer":
+                    List<Food> foods = null;
+                    foods = foodsBusinessLogic.getAllFoods();
+                    // Send foods to retailer home page
+                    request.setAttribute("foods", foods);
                     request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
                     break;
                 case "Organization":

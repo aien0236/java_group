@@ -4,6 +4,7 @@ import dataaccesslayer.User.UserDao;
 import dataaccesslayer.User.UserDaoImpl;
 import model.users.User;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserBusinessLogic {

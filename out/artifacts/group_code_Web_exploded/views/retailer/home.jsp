@@ -16,10 +16,12 @@
         request.setAttribute("errorMessage", "You are not logged in");
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
+
+
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Homepage</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -45,11 +47,12 @@
                 <INPUT TYPE="text" NAME="flag" class='my-2'>
             </label>
             <br>
+
             <input class="btn btn-primary my-4" type="SUBMIT" name="action" value="Add Food">
 
         </FORM>
     </div>
-    <div><a href="RetailerServlet">List all Food</a></div>
+    <%@ include file="inventory.jsp" %>
 </div>
 
 
