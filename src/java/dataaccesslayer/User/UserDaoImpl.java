@@ -14,6 +14,7 @@ import java.util.List;
 
 public class UserDaoImpl extends UserDao {
 
+
     /**
      * Returns a list of all users in the database
      *
@@ -27,8 +28,9 @@ public class UserDaoImpl extends UserDao {
         ResultSet rs = null;
         ArrayList<User> users = null;
         try {
-            // create and exectute query to get all users
-            conn = DataSource.createConnection();
+            // create and execute query to get all users
+            DataSource ds = new DataSource();
+            conn = ds.createConnection();
             String query = "SELECT * FROM user";
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -59,7 +61,7 @@ public class UserDaoImpl extends UserDao {
                 }
 
                 if (conn != null) {
-                    conn.close();
+
                 }
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -77,7 +79,8 @@ public class UserDaoImpl extends UserDao {
         boolean userAdded = false;
         try {
             // create connection and query
-            conn = DataSource.createConnection();
+            DataSource ds = new DataSource();
+            conn = ds.createConnection();
             String query = "INSERT INTO USER (user_name, email, password, userType) " +
                     "VALUES (?, ?, ?, ?)";
             pstmt = conn.prepareStatement(query);
@@ -128,7 +131,8 @@ public class UserDaoImpl extends UserDao {
         ResultSet rs = null;
         try {
             // create connection and query
-            conn = DataSource.createConnection();
+            DataSource ds = new DataSource();
+            conn = ds.createConnection();
             String query = "UPDATE USER SET user_name = ?, email = ?, password = ?, userType = ?" +
                     "WHERE email = ? AND passsword = ?";
             pstmt = conn.prepareStatement(query);
@@ -178,7 +182,8 @@ public class UserDaoImpl extends UserDao {
         User userFetch = null;
         try {
             // create connection and query
-            conn = DataSource.createConnection();
+            DataSource ds = new DataSource();
+            conn = ds.createConnection();
             String query = "SELECT * FROM USER WHERE email = ? AND password = ? LIMIT 1";
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, user.getEmail());
@@ -229,7 +234,8 @@ public class UserDaoImpl extends UserDao {
         ResultSet rs = null;
         try {
             // create connection and query
-            conn = DataSource.createConnection();
+            DataSource ds = new DataSource();
+            conn = ds.createConnection();
             String query = "DELETE FROM user WHERE email = ? AND password = ?";
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, user.getEmail());

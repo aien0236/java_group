@@ -1,41 +1,65 @@
-<%--https://stackoverflow.com/questions/4928271/how-to-install-jstl-it-fails-with-the-absolute-uri-cannot-be-resolved-or-una --%>
-
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%@page import="businesslayer.FoodsBusinessLogic"%>
 <%@page import="java.util.List" %>
-<%@page import="model.Food" %>
-<%@ page import="model.Food" %>
+<%@page import="model.food.Food" %>
+<%@ page import="model.food.FoodFlagger" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<% AuthorsBusinessLogic authorService = new AuthorsBusinessLogic();
-    List<Author> foods = authorService.getAllAuthors(); %>
---%>
+<%
+    List<Food> foods = (List<Food>) request.getAttribute("foods");
+    foods = FoodFlagger.flagAndUpdateList(foods);
 
-<html>
-    <head>
-        <title>Author List</title>
-    </head>
-    <body>
-        <h2>Book List</h2>
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Food Name</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% List<Food> foods = (List<Food>) request.getAttribute("foods");
-                for (Food food : foods) {%>
-                <tr>
-                    <td><%= food.getId()%></td>
-                    <td><%= food.getFoodName()%></td>
-                    <td></td>
-                </tr>
-                <% }%>
-            </tbody>
-        </table>
-    </body>
-</html>
+%>
+<h2 class='text-3xl mb-2 mt-6'>Foods in stock</h2>
+
+
+<div class="overflow-x-auto">
+    <table class="table">
+        <!-- head -->
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Expiration</th>
+            <th>Flag</th>
+            <th>Donate</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% for (int i = 0; i < foods.size(); i++) { %>
+        <tr class="<%= foods.get(i).getFlag() ? "bg-error" : "" %>">
+            <th><%= i + 1%>
+            </th>
+            <td><%= foods.get(i).getFoodName()%>
+            </td>
+            <td><%= foods.get(i).getPrice()%>
+            </td>
+            <td><%= foods.get(i).getDiscount()%>
+            </td>
+            <td><%= foods.get(i).getFoodtype()%>
+            </td>
+            <td><%= foods.get(i).getQuantity()%>
+            </td>
+            <td><%= foods.get(i).getExpiration_date()%>
+            <td><%= foods.get(i).getFlag()%>
+            </td>
+            <td>
+                <a href="DonateFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-primary btn-sm">Donate</a>
+            </td>
+            <td>
+                <a href="EditFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-neutral btn-sm">Edit</a>
+            </td>
+            </td>
+
+                <% } %>
+        </tbody>
+    </table>
+
+    <h2 class='text-3xl mb-2 mt-6'>Donation Form</h2>
+    <form action=""></form>
+</div>
+
