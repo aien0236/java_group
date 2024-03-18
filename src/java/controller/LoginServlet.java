@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         String userType = request.getParameter("userType");
         String action = request.getParameter("action");
 
-        // for debug
+        // for debugging
         System.out.println("User Name: " + userName);
         System.out.println("Password: " + password);
         System.out.println("User Type: " + userType);
@@ -120,6 +120,8 @@ public class LoginServlet extends HttpServlet {
             if (userDB == null) {
                 request.setAttribute("errorMessage", "User does not exist with that username/email/password");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+            }else {
+                System.out.println("Successfully found user account in the database.");
             }
 
             // create cookies based on user details
