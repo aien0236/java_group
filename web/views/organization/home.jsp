@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <div><a href="LoginServlet">Homepage</a></div>
+    <div><a href="Homepage">Homepage</a></div>
     this is the page for organization
     <div><a href="OrganizationServlet">List all Food from retailer</a></div>
 </body>
