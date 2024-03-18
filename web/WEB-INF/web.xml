@@ -23,6 +23,7 @@
     <servlet-mapping>
         <servlet-name>controller.LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+        <url-pattern>/Homepage</url-pattern>
     </servlet-mapping>
     <!-- Retailer Servlet Routing Table -->
     <servlet>

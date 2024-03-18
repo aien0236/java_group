@@ -5,39 +5,61 @@
 <%@page import="java.util.List" %>
 <%@page import="model.food.Food" %>
 <%@ page import="model.food.Food" %>
+<%@ page import="model.food.FoodFlagger" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<% AuthorsBusinessLogic authorService = new AuthorsBusinessLogic();
-    List<Author> foods = authorService.getAllAuthors(); %>
---%>
+<%
+    List<Food> foods = (List<Food>) request.getAttribute("foods");
+%>
 
 <html>
 <head>
-    <title>Author List</title>
+    <title>Organization Inventory</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<h2>Book List</h2>
+<%@ include file="../../components/header.jsp" %>
+<div class="overflow-x-auto">
+    <table class="table">
+        <!-- head -->
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Expiration</th>
+            <th>Claim</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (int i = 0; i < foods.size(); i++) { %>
+        <tr class="<%= foods.get(i).getFlag() ? "bg-error" : "" %>">
+            <th><%= i + 1%>
+            </th>
+            <td><%= foods.get(i).getFoodName()%>
+            </td>
+            <td><%= foods.get(i).getPrice()%>
+            </td>
+            <td><%= foods.get(i).getDiscount()%> %
+            </td>
+            <td><%= foods.get(i).getFoodtype()%>
+            </td>
+            <td><%= foods.get(i).getQuantity()%>
+            </td>
+            <td><%= foods.get(i).getExpiration_date()%>
+            </td>
+            <td>
+                <a href="ClaimFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-primary btn-sm">Claim</a>
+            </td>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Food Name</th>
-        <th>Price</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% List<Food> foods = (List<Food>) request.getAttribute("foods");
-        for (Food food : foods) {%>
-    <tr>
-        <td><%= food.getId()%>
-        </td>
-        <td><%= food.getFoodName()%>
-        </td>
-        <td></td>
-    </tr>
-    <% }%>
-    </tbody>
-</table>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

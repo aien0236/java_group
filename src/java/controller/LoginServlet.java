@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class LoginServlet extends HttpServlet {
 
+    public static boolean developerMode = false;
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -40,7 +42,8 @@ public class LoginServlet extends HttpServlet {
         //
         System.out.println("Referer: " + referer);
         //
-        if (referer != null && referer.endsWith("/LoginServlet")) {
+        if (referer != null && referer.endsWith("/Homepage")) {
+            System.out.println("To homepage");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
 
@@ -59,18 +62,24 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
         // get parameters
-        String userName = request.getParameter("userName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String userType = request.getParameter("userType");
-        String action = request.getParameter("action");
+        String userName       = request.getParameter("userName");
+        String email          = request.getParameter("email");
+        String password       = request.getParameter("password");
+        String userType       = request.getParameter("userType");
+        String action         = request.getParameter("action");
+        String mode           = request.getParameter("mode");
+        developerMode = mode != null && mode.equals("on");
 
-        // for debug
+        // for debugging
+        System.out.println("-----------------------");
+        System.out.println("In LoginServlet line 71");
         System.out.println("User Name: " + userName);
         System.out.println("Password: " + password);
         System.out.println("User Type: " + userType);
         System.out.println("Email: " + email);
         System.out.println("Action: " + action);
+        System.out.println("Mode: " + mode);
+        System.out.println("-----------------------");
 
         // create local user object
         User user = UserFactory.createUser(userName, email, password, userType);
@@ -117,19 +126,24 @@ public class LoginServlet extends HttpServlet {
             // DON'T forget to reference userDB, rather than user
             User userDB = userBusinessLogic.getUser(user);
             // User does not exist in database, redirect back to login with error message
-            if (userDB == null) {
-                request.setAttribute("errorMessage", "User does not exist with that username/email/password");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+            if (!developerMode){
+                if (userDB == null) {
+                    request.setAttribute("errorMessage", "User does not exist with that username/email/password");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                } else {
+                    System.out.println("Successfully found user account in the database.");
+                    // create cookies based on user details
+                    UserCookies.createSessionCookies(userDB.getUsername(), userDB.getEmail(), userDB.getId(), response);
+                }
             }
 
-            // create cookies based on user details
-            UserCookies.createSessionCookies(userDB.getUsername(), userDB.getEmail(), userDB.getId(), response);
             switch (userType) {
                 case "Retailer":
                     List<Food> foods = null;
                     foods = foodsBusinessLogic.getAllFoods();
                     // Send foods to retailer home page
                     request.setAttribute("foods", foods);
+                    System.out.println("To retailer homepage");
                     request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
                     break;
                 case "Organization":
