@@ -6,6 +6,7 @@ package controller;
  */
 
 import businesslayer.FoodsBusinessLogic;
+import dataaccesslayer.User.UserCookies;
 import model.food.Food;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 public class RetailerServlet extends HttpServlet {
 
@@ -69,13 +74,37 @@ public class RetailerServlet extends HttpServlet {
     }// </editor-fold>
 
     private void addFood(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String, String> cookieMap = UserCookies.getCookieMap(request);
+        // get user id from cookies
+        int userId = Integer.parseInt(cookieMap.get("id"));
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
+        // get food parameters
         String foodName = request.getParameter("foodName");
+        String expirationDateString = request.getParameter("expirationDate");
+        Timestamp expirationDate = Timestamp.valueOf(LocalDateTime.parse(expirationDateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
         boolean flag = Boolean.parseBoolean(request.getParameter("flag"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        int discount = Integer.parseInt(request.getParameter("discount"));
+        String foodtype = request.getParameter("foodtype");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        // create the food item
         Food food = new Food();
         food.setFoodName(foodName);
+        food.setExpiration_date(expirationDate);
         food.setFlag(flag);
-        foodBusinessLogic.addFood(food);
+        food.setPrice(price);
+        food.setDiscount(discount);
+        food.setFoodtype(foodtype);
+        food.setQuantity(quantity);
+        food.setUser_id(userId);
+        // insert the food into the database
+        boolean foodUpdated = foodBusinessLogic.addFood(food);
+        if (foodUpdated) {
+            request.setAttribute("errorMessage", "Failed to insert food into database");
+        }
+        List<Food> foods = foodBusinessLogic.getAllFoods();
+        request.setAttribute("foods", foods);
+        request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
     }
 
 }
