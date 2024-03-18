@@ -12,12 +12,34 @@ public class Food {
 
 
     private int id;
+    private int user_id;
     private String foodName;
     private Timestamp expiration_date;
     private boolean flag;
+    private boolean flagged;
     private double price;
     private int discount;
     private String foodtype;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
 
     public int getQuantity() {
         return quantity;

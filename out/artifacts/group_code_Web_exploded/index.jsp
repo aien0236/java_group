@@ -34,33 +34,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     }
 
 %>
-<div class="p-6 mx-auto max-w-4xl border-2 border-gray-400 p-4 rounded-md">
+<div class="p-6 mx-auto max-w-4xl border-2 border-gray-400 p-4 rounded-md bg-base-200">
+    <h1 class="text-2xl">Login Page</h1>
     <FORM ACTION="LoginServlet" METHOD="POST">
-        User Name:
-        <br>
-        <label for="" class='input input-bordered'>
 
-            <INPUT TYPE="text" NAME="userName" value= <%=userName%>><BR>
+        <br>
+        <label for="username">
+            User Name:
         </label>
         <br>
-        Email:
-        <br>
-        <label for="" class='input input-bordered'>
+        <INPUT id='username' class='input input-bordered mt-2' TYPE="text" NAME="userName" value= <%=userName%>><BR>
 
-            <input type="text" name="email" value= <%=email%>> <br>
+
+        <br>
+        <label for="email">
+            Email:
+        </label>
+        <br>
+        <input id='email' class='input input-bordered mt-2' type="text" name="email" value= <%=email%>> <br>
+
+
+        <br>
+        <label for="password">
+            Password:
         </label>
 
         <br>
-        Password:
-        <br>
-        <label for="" class='input input-bordered'>
+        <INPUT id='password' class='input input-bordered mt-2' TYPE="password" NAME="password" value= <%=password%>><BR>
 
-            <INPUT TYPE="password" NAME="password" value= <%=password%>><BR>
-        </label>
         <br>
         User Type:
         <br>
-        <select name="userType" class='select select-bordered mb-4'>
+        <select name="userType" class='select select-bordered mb-8 mt-2'>
             <option <%= userType.equals("Retailer") ? "selected" : ""%> value="Retailer">Retailer</option>
             <option <%= userType.equals("Organization") ? "selected" : ""%> value="Organization">Organization</option>
             <option <%= userType.equals("Consumer") ? "selected" : ""%> value="Consumer">Consumer</option>
@@ -69,7 +74,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <!-- Choose to sign up or log in -->
         <input type="SUBMIT" name="action" value="signup" class='btn'>
         <input type="SUBMIT" name="action" value="login" class='btn btn-primary'>
-        <br>
         <br>
         <p class='text-red-700'>
             <% if (errorMessage != null) { %>

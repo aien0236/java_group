@@ -88,10 +88,11 @@ public class LoginServlet extends HttpServlet {
             }
 
             boolean userCreated = userBusinessLogic.createUser(user);
+            user = userBusinessLogic.getUser(user);
             // check to see if user was successfully created in database
             if (userCreated) {
                 // update user cookies
-                UserCookies.createSessionCookies(user.getUsername(), user.getEmail(), response);
+                UserCookies.createSessionCookies(user.getUsername(), user.getEmail(), user.getId(), response);
                 // redirect to user page based on user type
                 switch (userType) {
                     case "Retailer":
@@ -113,15 +114,16 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         } else if ("login".equals(action)) {
-
+            // DON'T forget to reference userDB, rather than user
             User userDB = userBusinessLogic.getUser(user);
             // User does not exist in database, redirect back to login with error message
             if (userDB == null) {
                 request.setAttribute("errorMessage", "User does not exist with that username/email/password");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
+
             // create cookies based on user details
-            UserCookies.createSessionCookies(userDB.getUsername(), userDB.getEmail(), response);
+            UserCookies.createSessionCookies(userDB.getUsername(), userDB.getEmail(), userDB.getId(), response);
             switch (userType) {
                 case "Retailer":
                     List<Food> foods = null;

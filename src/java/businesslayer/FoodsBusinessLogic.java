@@ -23,12 +23,12 @@ public class FoodsBusinessLogic {
         return foodsDao.getAllFoods();
     }
 
-    public List<Food> getFoodsWithFlag(String flag) {
-        return foodsDao.getFoodsWithFlag(flag);
+    public List<Food> getFlaggedFoods() {
+        return foodsDao.getFlaggedFoods();
     }
 
-    public void addFood(Food food) {
-        foodsDao.addFood(food);
+    public boolean addFood(Food food) {
+        return foodsDao.addFood(food);
     }
 
     public Food getFoodById(int foodId) {
@@ -37,5 +37,9 @@ public class FoodsBusinessLogic {
 
     public boolean updateFood(Food food) {
         return foodsDao.updateFood(food);
+    }
+
+    public boolean donateFood(Food food) {
+        return foodsDao.donateFood(food);
     }
 }
