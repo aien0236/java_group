@@ -18,6 +18,8 @@
         <INPUT TYPE="text" NAME="foodName" ><BR>
         Flag:
         <INPUT TYPE="text" NAME="flag"><BR>
+        Price:
+        <INPUT TYPE="text" NAME="price"><BR>
         <input type="SUBMIT" name="action" value="Add Food">
     </FORM>
     <div><a href="RetailerServlet">List all Food</a></div>
