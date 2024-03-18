@@ -6,9 +6,10 @@
 package businesslayer;
 
 import dataaccesslayer.FoodDaoImpl;
+
 import java.util.List;
-import java.sql.SQLException;
-import model.Food;
+
+import model.food.Food;
 
 public class FoodsBusinessLogic {
 
@@ -18,14 +19,27 @@ public class FoodsBusinessLogic {
         foodsDao = new FoodDaoImpl();
     }
 
-    public List<Food> getAllFoods() throws SQLException {
+    public List<Food> getAllFoods() {
         return foodsDao.getAllFoods();
     }
-    public List<Food> getFoodsWithFlag(String flag) throws SQLException {
-        return foodsDao.getFoodsWithFlag(flag);
+
+    public List<Food> getFlaggedFoods() {
+        return foodsDao.getFlaggedFoods();
     }
 
-    public void addFood(Food food) {
-        foodsDao.addFood(food);
+    public boolean addFood(Food food) {
+        return foodsDao.addFood(food);
+    }
+
+    public Food getFoodById(int foodId) {
+        return foodsDao.getFoodById(foodId);
+    }
+
+    public boolean updateFood(Food food) {
+        return foodsDao.updateFood(food);
+    }
+
+    public boolean donateFood(Food food) {
+        return foodsDao.donateFood(food);
     }
 }

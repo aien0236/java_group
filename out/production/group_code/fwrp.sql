@@ -54,10 +54,31 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`organization_inventory` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `food_name` VARCHAR(50) NULL,
   `expiration_date` VARCHAR(50) NULL,
+  `quantity` INT NOT NULL,
+  `foodtype` VARCHAR(50) NULL,
+  `organization_id` INT NOT NULL,
+  CONSTRAINT FK_organization FOREIGN KEY (organization_id) REFERENCES user(id),
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `FWRP`.`organization_inventory`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FWRP`.`food_donation` ;
 
+CREATE TABLE IF NOT EXISTS `FWRP`.`food_donation` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `food_name` VARCHAR(50) NOT NULL,
+    `expiration_date` DATETIME NULL,
+    `flag` BOOLEAN NULL,
+    `price` DECIMAL(10, 2) NULL,
+    `discount` INT NULL,
+    `foodtype` VARCHAR(50) NULL,
+    `quantity` INT NOT NULL,
+    `retailer_id` INT NOT NULL,
+    CONSTRAINT FK_retailer FOREIGN KEY (retailer_id) REFERENCES user(id),
+    PRIMARY KEY (`id`))
+    ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `FWRP`.`retailer_inventory`
 -- -----------------------------------------------------
@@ -65,12 +86,16 @@ DROP TABLE IF EXISTS `FWRP`.`retailer_inventory` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`retailer_inventory` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `food_name` VARCHAR(50) NULL,
-  `expiration_date` VARCHAR(50) NULL,
-  `flag` VARCHAR(50) NULL,
-  `price` VARCHAR(50) NULL,
-  `discount` VARCHAR(50) NULL,
+  `food_name` VARCHAR(50) NOT NULL,
+  `expiration_date` DATETIME NULL,
+  `flag` BOOLEAN NULL,
+  `flagged` BOOLEAN NULL,
+  `price` DECIMAL(10, 2) NULL,
+  `discount` INT NULL,
   `foodtype` VARCHAR(50) NULL,
+  `quantity` INT NOT NULL,
+  `retailer_id` INT NOT NULL,
+   CONSTRAINT FK_retailer FOREIGN KEY (retailer_id) REFERENCES user(id),
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

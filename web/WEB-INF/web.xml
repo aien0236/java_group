@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <welcome-file-list>
         <welcome-file>
             index.jsp
@@ -14,6 +15,15 @@
         <servlet-name>controller.LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+    <!-- Logout Servlet Routing Table -->
+    <servlet>
+        <servlet-name>controller.LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
     <!-- Retailer Servlet Routing Table -->
     <servlet>
         <servlet-name>controller.RetailerServlet</servlet-name>
@@ -22,6 +32,24 @@
     <servlet-mapping>
         <servlet-name>controller.RetailerServlet</servlet-name>
         <url-pattern>/RetailerServlet</url-pattern>
+    </servlet-mapping>
+    <!-- Retailer Edit Food Servlet -->
+    <servlet>
+        <servlet-name>controller.retailer.EditFoodServlet</servlet-name>
+        <servlet-class>controller.retailer.EditFoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.retailer.EditFoodServlet</servlet-name>
+        <url-pattern>/EditFoodServlet</url-pattern>
+    </servlet-mapping>
+    <!-- Retailer Donate Food Servlet -->
+    <servlet>
+        <servlet-name>controller.retailer.DonateFoodServlet</servlet-name>
+        <servlet-class>controller.retailer.DonateFoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.retailer.DonateFoodServlet</servlet-name>
+        <url-pattern>/DonateFoodServlet</url-pattern>
     </servlet-mapping>
     <!-- Organization Servlet Routing Table -->
     <servlet>
