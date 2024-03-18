@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`food_donation` (
     `foodtype` VARCHAR(50) NULL,
     `quantity` INT NOT NULL,
     `retailer_id` INT NOT NULL,
-    CONSTRAINT FK_retailer FOREIGN KEY (retailer_id) REFERENCES user(id),
+    CONSTRAINT FK_donation_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
     PRIMARY KEY (`id`))
     ENGINE = InnoDB;
 -- -----------------------------------------------------
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`retailer_inventory` (
   `foodtype` VARCHAR(50) NULL,
   `quantity` INT NOT NULL,
   `retailer_id` INT NOT NULL,
-   CONSTRAINT FK_retailer FOREIGN KEY (retailer_id) REFERENCES user(id),
+   CONSTRAINT FK_retailer_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
