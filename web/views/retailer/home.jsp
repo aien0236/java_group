@@ -30,7 +30,8 @@
 
 <div class="p-6 mx-auto max-w-4xl">
     <a href="/group_code_Web_exploded/" class='link link-primary'>Homepage</a>
-    <h1 class='text-3xl mb-4'>Retailer</h1>
+    <h1 class='text-3xl mb-4'>Retailer <%= username%>
+    </h1>
     <%@ include file="addFood.jsp" %>
     <%@ include file="inventory.jsp" %>
 </div>

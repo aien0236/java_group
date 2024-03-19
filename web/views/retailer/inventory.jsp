@@ -59,7 +59,5 @@
         </tbody>
     </table>
 
-    <h2 class='text-3xl mb-2 mt-6'>Donation Form</h2>
-    <form action=""></form>
 </div>
 
