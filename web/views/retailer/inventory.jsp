@@ -38,7 +38,7 @@
             </td>
             <td><%= foods.get(i).getPrice()%>
             </td>
-            <td><%= foods.get(i).getDiscount()%>
+            <td><%= foods.get(i).getDiscount()%> %
             </td>
             <td><%= foods.get(i).getFoodtype()%>
             </td>
@@ -53,9 +53,8 @@
             <td>
                 <a href="EditFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-neutral btn-sm">Edit</a>
             </td>
-            </td>
-
-                <% } %>
+        </tr>
+        <% } %>
         </tbody>
     </table>
 

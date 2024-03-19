@@ -70,10 +70,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <option <%= userType.equals("Organization") ? "selected" : ""%> value="Organization">Organization</option>
             <option <%= userType.equals("Consumer") ? "selected" : ""%> value="Consumer">Consumer</option>
         </select>
+
         <BR>
         <!-- Choose to sign up or log in -->
         <input type="SUBMIT" name="action" value="signup" class='btn'>
         <input type="SUBMIT" name="action" value="login" class='btn btn-primary'>
+        <input type="checkbox" id="mode" name="mode">
+        <label for="mode">Developer Mode</label>
         <br>
         <p class='text-red-700'>
             <% if (errorMessage != null) { %>
