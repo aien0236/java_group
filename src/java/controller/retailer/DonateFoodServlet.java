@@ -22,17 +22,20 @@ public class DonateFoodServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("in: " + this.getClass().toString());
         FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
         int foodId = Integer.parseInt(req.getParameter("id"));
         // get food from database based on provided id
         Food food = foodsBusinessLogic.getFoodById(foodId);
         // donate the food (set flagged to true in database for the food)
         boolean successfullyDonated = foodsBusinessLogic.donateFood(food);
-
+        System.out.println("in: " + this.getClass().toString());
         // redirect back to homepage if donation successful
         if (successfullyDonated) {
-            resp.sendRedirect("/RetailerServlet");
+            System.out.println("successfullyDonated");
+            resp.sendRedirect("RetailerServlet");
         } else {
+            System.out.println("!successfullyDonated");
             // go back to donation page and send error message if donation failed
             req.setAttribute("errorMessage", "Failed to donate food");
             req.setAttribute("food", food);
