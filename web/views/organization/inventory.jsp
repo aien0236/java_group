@@ -20,6 +20,7 @@
 </head>
 <body>
 <%@ include file="../../components/header.jsp" %>
+<div class="mx-auto max-w-4xl">
 <div class="overflow-x-auto">
     <table class="table">
         <!-- head -->
@@ -60,6 +61,7 @@
         <% } %>
         </tbody>
     </table>
+</div>
 </div>
 </body>
 </html>

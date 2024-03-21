@@ -40,7 +40,7 @@ public class RetailerServlet extends HttpServlet {
         foods = authorBusinessLogic.getAllFoods();
 
         request.setAttribute("foods", foods);
-
+        System.out.println("in: " + this.getClass().toString());
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/retailer/inventory.jsp");
         dispatcher.forward(request, response);
 
@@ -56,7 +56,7 @@ public class RetailerServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println("in: " + this.getClass().toString());
         addFood(request, response);
 
         doGet(request, response);
