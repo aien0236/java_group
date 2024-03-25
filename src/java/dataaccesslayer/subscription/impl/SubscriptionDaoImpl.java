@@ -28,6 +28,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
 
             stmt = conn.prepareStatement(sql);
 
+            // todo userId = 1 is a test
             stmt.setLong(1, 1);
             stmt.setString(2, subscription.getSubscriberName());
             stmt.setString(3, subscription.getEmail());
@@ -43,7 +44,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
         }
     }
 
-    // 关闭连接的方法，可供其他方法调用
+    // Method to close the connection, which can be called by other methods.
     private void closeConnection(Connection conn) {
         if (conn != null) {
             try {

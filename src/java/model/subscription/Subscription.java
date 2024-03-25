@@ -1,11 +1,7 @@
 package model.subscription;
 
 
-/**
- * @description:
- * @author: Luoxin Fan
- * @create: 2024-03-25 14:12
- **/
+
 public class Subscription {
     private Long id;
     private Long userId;
