@@ -14,7 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema FWRP
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `FWRP` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `FWRP` DEFAULT CHARACTER SET utf8mb4;
 USE `FWRP` ;
 
 -- -----------------------------------------------------
@@ -23,13 +23,13 @@ USE `FWRP` ;
 DROP TABLE IF EXISTS `FWRP`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_name` VARCHAR(50) NULL,
-  `email` VARCHAR(50) NULL,
-  `password` VARCHAR(50) NULL,
-  `usertype` VARCHAR(50) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+                                             `id` INT NOT NULL AUTO_INCREMENT,
+                                             `user_name` VARCHAR(50) NULL,
+                                             `email` VARCHAR(50) NULL,
+                                             `password` VARCHAR(50) NULL,
+                                             `usertype` VARCHAR(50) NULL,
+                                             PRIMARY KEY (`id`))
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -38,11 +38,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `FWRP`.`consumers_inventory` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`consumers_inventory` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `food_name` VARCHAR(50) NULL,
-  `expiration_date` VARCHAR(50) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+                                                            `id` INT NOT NULL AUTO_INCREMENT,
+                                                            `food_name` VARCHAR(50) NULL,
+                                                            `expiration_date` VARCHAR(50) NULL,
+                                                            PRIMARY KEY (`id`))
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -51,15 +51,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `FWRP`.`organization_inventory` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`organization_inventory` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `food_name` VARCHAR(50) NULL,
-  `expiration_date` VARCHAR(50) NULL,
-  `quantity` INT NOT NULL,
-  `foodtype` VARCHAR(50) NULL,
-  `organization_id` INT NOT NULL,
-  CONSTRAINT FK_organization FOREIGN KEY (organization_id) REFERENCES user(id),
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+                                                               `id` INT NOT NULL AUTO_INCREMENT,
+                                                               `food_name` VARCHAR(50) NULL,
+                                                               `expiration_date` VARCHAR(50) NULL,
+                                                               `quantity` INT NOT NULL,
+                                                               `foodtype` VARCHAR(50) NULL,
+                                                               `organization_id` INT NOT NULL,
+                                                               CONSTRAINT FK_organization FOREIGN KEY (organization_id) REFERENCES user(id),
+                                                               PRIMARY KEY (`id`))
+    ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `FWRP`.`organization_inventory`
@@ -67,17 +67,17 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `FWRP`.`food_donation` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`food_donation` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `food_name` VARCHAR(50) NOT NULL,
-    `expiration_date` DATETIME NULL,
-    `flag` BOOLEAN NULL,
-    `price` DECIMAL(10, 2) NULL,
-    `discount` INT NULL,
-    `foodtype` VARCHAR(50) NULL,
-    `quantity` INT NOT NULL,
-    `retailer_id` INT NOT NULL,
-    CONSTRAINT FK_donation_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
-    PRIMARY KEY (`id`))
+                                                      `id` INT NOT NULL AUTO_INCREMENT,
+                                                      `food_name` VARCHAR(50) NOT NULL,
+                                                      `expiration_date` DATETIME NULL,
+                                                      `flag` BOOLEAN NULL,
+                                                      `price` DECIMAL(10, 2) NULL,
+                                                      `discount` INT NULL,
+                                                      `foodtype` VARCHAR(50) NULL,
+                                                      `quantity` INT NOT NULL,
+                                                      `retailer_id` INT NOT NULL,
+                                                      CONSTRAINT FK_donation_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
+                                                      PRIMARY KEY (`id`))
     ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `FWRP`.`retailer_inventory`
@@ -85,19 +85,19 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`food_donation` (
 DROP TABLE IF EXISTS `FWRP`.`retailer_inventory` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`retailer_inventory` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `food_name` VARCHAR(50) NOT NULL,
-  `expiration_date` DATETIME NULL,
-  `flag` BOOLEAN NULL,
-  `flagged` BOOLEAN NULL,
-  `price` DECIMAL(10, 2) NULL,
-  `discount` INT NULL,
-  `foodtype` VARCHAR(50) NULL,
-  `quantity` INT NOT NULL,
-  `retailer_id` INT NOT NULL,
-   CONSTRAINT FK_retailer_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+                                                           `id` INT NOT NULL AUTO_INCREMENT,
+                                                           `food_name` VARCHAR(50) NOT NULL,
+                                                           `expiration_date` DATETIME NULL,
+                                                           `flag` BOOLEAN NULL,
+                                                           `flagged` BOOLEAN NULL,
+                                                           `price` DECIMAL(10, 2) NULL,
+                                                           `discount` INT NULL,
+                                                           `foodtype` VARCHAR(50) NULL,
+                                                           `quantity` INT NOT NULL,
+                                                           `retailer_id` INT NOT NULL,
+                                                           CONSTRAINT FK_retailer_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
+                                                           PRIMARY KEY (`id`))
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -105,16 +105,20 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `FWRP`.`subscription` ;
 
-CREATE TABLE IF NOT EXISTS `FWRP`.`subscription` (
-  `user_id` INT NOT NULL,
-  `subscriber_name` VARCHAR(50) NULL,
-  `email` VARCHAR(50) NULL,
-  `phone` VARCHAR(50) NULL,
-  `food_preference` VARCHAR(50) NULL,
-  PRIMARY KEY (`user_id`),
-  CONSTRAINT `fk_subscription_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `FWRP`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `FWRP`.`subscription`
+(
+    `id`              int auto_increment,
+    `user_id`         INT         NOT NULL,
+    `subscriber_name` VARCHAR(50) NULL,
+    `email`           VARCHAR(50) NULL,
+    `phone`           VARCHAR(50) NULL,
+    `food_preference_type` VARCHAR(50) NULL,
+    `location` varchar(255),
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_subscription_user`
+        FOREIGN KEY (`user_id`)
+            REFERENCES `FWRP`.`user` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB;
