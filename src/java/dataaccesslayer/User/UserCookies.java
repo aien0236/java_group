@@ -1,6 +1,7 @@
 package dataaccesslayer.User;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -73,4 +74,10 @@ public class UserCookies {
         }
         return cookieMap;
     }
+
+    public static String getUserId(HttpServletRequest request) {
+        Map<String, String> cookieMap = getCookieMap(request);
+        return cookieMap.get("id");
+    }
+
 }
