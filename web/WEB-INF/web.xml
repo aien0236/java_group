@@ -81,6 +81,7 @@
         <url-pattern>/ForumServlet</url-pattern>
         <url-pattern>/Forum</url-pattern>
         <url-pattern>/forum</url-pattern>
+        <url-pattern>/Post</url-pattern>
     </servlet-mapping>
 
     <session-config>
