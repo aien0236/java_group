@@ -1,4 +1,5 @@
 main {
+    font-family: 'EB Garamond', serif;
     max-width: 700px;
     min-width: 540px;
     margin: auto;
@@ -281,4 +282,8 @@ button, #reset, #submit, uploadImg {
 }
 .comment-card button:hover {
     cursor: pointer;
+}
+
+.navbar-end{
+    /*display: none;*/
 }
