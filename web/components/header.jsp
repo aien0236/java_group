@@ -17,7 +17,7 @@
                 </svg>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a>Item 1</a></li>
+                <li><a href="Forum">Forum</a></li>
                 <li>
                     <a>Parent</a>
                     <ul class="p-2">
@@ -28,11 +28,11 @@
                 <li><a>Item 3</a></li>
             </ul>
         </div>
-        <a class="btn btn-ghost text-xl">Home</a>
+        <a class="btn btn-ghost text-xl" href="Homepage">Home</a>
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-            <li><a>Item 1</a></li>
+            <li><a href="Forum">Forum</a></li>
             <li>
                 <details>
                     <summary>Parent</summary>

@@ -19,11 +19,16 @@
     <!-- Customized Stylesheets -->
     <link rel="stylesheet" type="text/css" href="views/forum/css/style.css">
     <link rel="stylesheet" type="text/css" href="views/forum/css/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css"/>
     <!-- Added an external JavaScript file with the 'defer' attribute to enable deferred loading -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="views/forum/scripts/home.js" defer></script>
 </head>
 
 <body>
+<!-- Header -->
+<%@ include file="../../components/header.jsp" %>
+
 <!-- Main -->
 <main>
 
