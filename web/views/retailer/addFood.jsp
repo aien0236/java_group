@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<div class='border-2 border-gray-400 p-4 rounded-md'>
+<div class='border-2 border-gray-400 p-4 rounded-md bg-base-200'>
     <h2 class="text-2xl">Add Food</h2>
     <FORM ACTION="RetailerServlet" METHOD="POST">
 

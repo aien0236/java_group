@@ -34,8 +34,7 @@
     <a href="Homepage" class='link link-primary'>Homepage</a>
     <h1 class='text-3xl mb-4'>Retailer <%= username%>
     </h1>
-    <a href="Homepage" class='link link-primary'>Homepage</a>
-    <h1 class='text-3xl mb-4'>Retailer</h1>
+
     <%@ include file="addFood.jsp" %>
     <%@ include file="inventory.jsp" %>
 </div>
