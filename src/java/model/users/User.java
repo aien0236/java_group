@@ -1,8 +1,18 @@
 package model.users;
 
 public abstract class User {
+    protected int id;
     protected String username;
     protected String email;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     protected String password;
     protected String userType;
 

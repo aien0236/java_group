@@ -32,11 +32,12 @@ public class OrganizationServlet extends HttpServlet {
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
         List<Food> foods = null;
 
-        foods = foodBusinessLogic.getFoodsWithFlag("donation");
+        foods = foodBusinessLogic.getFlaggedFoods();
+        System.out.println(foods);
 
         request.setAttribute("foods", foods);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/consumer/inventory.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/organization/inventory.jsp");
         dispatcher.forward(request, response);
 
     }

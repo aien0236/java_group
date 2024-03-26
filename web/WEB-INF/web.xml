@@ -3,6 +3,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <welcome-file-list>
         <welcome-file>
+<!--            views/forum/home.jsp-->
             index.jsp
         </welcome-file>
     </welcome-file-list>
@@ -23,6 +24,7 @@
     <servlet-mapping>
         <servlet-name>controller.LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+        <url-pattern>/Homepage</url-pattern>
     </servlet-mapping>
     <!-- Retailer Servlet Routing Table -->
     <servlet>
@@ -68,6 +70,17 @@
     <servlet-mapping>
         <servlet-name>controller.ConsumerServlet</servlet-name>
         <url-pattern>/ConsumerServlet</url-pattern>
+    </servlet-mapping>
+    <!-- Forum Servlet Routing Table -->
+    <servlet>
+        <servlet-name>controller.ForumServlet</servlet-name>
+        <servlet-class>controller.forum.ForumServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.ForumServlet</servlet-name>
+        <url-pattern>/ForumServlet</url-pattern>
+        <url-pattern>/Forum</url-pattern>
+        <url-pattern>/forum</url-pattern>
     </servlet-mapping>
 
     <session-config>

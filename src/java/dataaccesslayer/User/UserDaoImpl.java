@@ -196,6 +196,7 @@ public class UserDaoImpl extends UserDao {
             if (rs.next()) {
 
                 userFetch = getUserByType(rs.getString("usertype"));
+                userFetch.setId(rs.getInt("id"));
                 userFetch.setUsername(rs.getString("user_name"));
                 userFetch.setEmail(rs.getString("email"));
                 userFetch.setPassword(rs.getString("password"));
