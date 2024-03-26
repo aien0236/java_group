@@ -35,14 +35,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
 %>
 <div class="p-6 mx-auto max-w-4xl border-2 border-gray-400 p-4 rounded-md bg-base-200">
-    <h1 class="text-2xl">Login Page</h1>
+    <h1 class="text-2xl">Signup Page</h1>
     <FORM ACTION="LoginServlet" METHOD="POST">
 
         <br>
+        <label for="username">
+            User Name
+        </label>
+        <br>
+        <INPUT id='username' class='input input-bordered mt-2' TYPE="text" NAME="userName" value= <%=userName%>><BR>
+
 
         <br>
         <label for="email">
-            Email or username
+            Email
         </label>
         <br>
         <input id='email' class='input input-bordered mt-2' type="text" name="email" value= <%=email%>> <br>
@@ -56,12 +62,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <br>
         <INPUT id='password' class='input input-bordered mt-2' TYPE="password" NAME="password" value= <%=password%>><BR>
 
-      
         <br>
-        <p>Don't have an account? <a class="link link-primary" href="signup.jsp">Sign up</a></p>
+        User Type
+        <br>
+        <select name="userType" class='select select-bordered mb-8 mt-2'>
+            <option <%= userType.equals("Retailer") ? "selected" : ""%> value="Retailer">Retailer</option>
+            <option <%= userType.equals("Organization") ? "selected" : ""%> value="Organization">Organization</option>
+            <option <%= userType.equals("Consumer") ? "selected" : ""%> value="Consumer">Consumer</option>
+        </select>
+        <br>
+        <p>Already have an account?
+            <a href="index.jsp" class="link link-primary">Log in</a></p>
         <BR>
         <!-- Choose to sign up or log in -->
-        <input type="SUBMIT" name="action" value="login" class='btn btn-primary'>
+        <input type="SUBMIT" name="action" value="signup" class='btn btn-primary'>
         <input type="checkbox" id="mode" name="mode">
         <label for="mode">Developer Mode</label>
         <br>

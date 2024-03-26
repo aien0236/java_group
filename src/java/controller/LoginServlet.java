@@ -17,6 +17,7 @@ import validation.UserValidation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -62,12 +63,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
         // get parameters
-        String userName       = request.getParameter("userName");
-        String email          = request.getParameter("email");
-        String password       = request.getParameter("password");
-        String userType       = request.getParameter("userType");
-        String action         = request.getParameter("action");
-        String mode           = request.getParameter("mode");
+        String userName = request.getParameter("userName");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String userType = request.getParameter("userType");
+        String action = request.getParameter("action");
+        String mode = request.getParameter("mode");
         developerMode = mode != null && mode.equals("on");
 
         // for debugging
@@ -80,6 +81,17 @@ public class LoginServlet extends HttpServlet {
         System.out.println("Action: " + action);
         System.out.println("Mode: " + mode);
         System.out.println("-----------------------");
+
+        // this is for the login page because email and username are
+        // provided as a single field email.
+        if (userName == null) {
+            userName = email;
+        }
+        // Set the usertype to empty string if null when user is logging in
+        // to prevent null error
+        if (userType == null) {
+            userType = "Retailer";
+        }
 
         // create local user object
         User user = UserFactory.createUser(userName, email, password, userType);
@@ -124,9 +136,10 @@ public class LoginServlet extends HttpServlet {
             }
         } else if ("login".equals(action)) {
             // DON'T forget to reference userDB, rather than user
+
             User userDB = userBusinessLogic.getUser(user);
             // User does not exist in database, redirect back to login with error message
-            if (!developerMode){
+            if (!developerMode) {
                 if (userDB == null) {
                     request.setAttribute("errorMessage", "User does not exist with that username/email/password");
                     request.getRequestDispatcher("index.jsp").forward(request, response);
