@@ -234,7 +234,7 @@ public class FoodDaoImpl {
         try {
             DataSource ds = new DataSource();
             con = ds.createConnection();
-            pstmt = con.prepareStatement("UPDATE retailer_inventory SET food_name = ?, expiration_date = ?, flag = ?, flagged = ?, price = ?, discount = ?, foodtype = ?, quantity = ?, retailer_id = ? " +
+            pstmt = con.prepareStatement("UPDATE retailer_inventory SET food_name = ?, expiration_date = ?, flag = ?, flagged = ?, price = ?, discount = ?, foodtype = ?, quantity = ? " +
                     "WHERE id = ?");
             pstmt.setString(1, food.getFoodName());
             pstmt.setTimestamp(2, food.getExpiration_date());
@@ -245,7 +245,6 @@ public class FoodDaoImpl {
             pstmt.setString(7, food.getFoodtype());
             pstmt.setInt(8, food.getQuantity());
             pstmt.setInt(9, food.getId());
-            pstmt.setInt(10, food.getUser_id());
 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {

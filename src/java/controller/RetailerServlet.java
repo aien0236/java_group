@@ -41,7 +41,7 @@ public class RetailerServlet extends HttpServlet {
 
         request.setAttribute("foods", foods);
         System.out.println("in: " + this.getClass().toString());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/retailer/inventory.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/retailer/home.jsp");
         dispatcher.forward(request, response);
 
     }
