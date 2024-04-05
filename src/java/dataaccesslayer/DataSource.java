@@ -22,7 +22,7 @@ public class DataSource {
 
     private Connection connection = null;
     private String url = "jdbc:mysql://localhost:3306/fwrp";
-    private String username = "CSST8288";
+    private String username = "CST8288";
     private String password = "CST8288";
 
     public DataSource() {
