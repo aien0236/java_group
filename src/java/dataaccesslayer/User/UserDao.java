@@ -24,15 +24,15 @@ public abstract class UserDao {
         switch (userType) {
             case "Consumer":
                 user = new Consumer();
-                user.setUserType("" + User.USER_TYPES.CONSUMER);
+                user.setUserType("Consumer");
                 break;
             case "Retailer":
                 user = new Retailer();
-                user.setUserType("" + User.USER_TYPES.RETAILER);
+                user.setUserType("Retailer");
                 break;
             case "Organization":
                 user = new Organization();
-                user.setUserType("" + User.USER_TYPES.CHARITY);
+                user.setUserType("Organization");
                 break;
             default:
                 throw new UnsupportedOperationException();

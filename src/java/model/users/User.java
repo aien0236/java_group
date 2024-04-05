@@ -16,12 +16,6 @@ public abstract class User {
     protected String password;
     protected String userType;
 
-    public enum USER_TYPES {
-        CONSUMER,
-        RETAILER,
-        CHARITY
-    }
-
     public User() {
 
     }

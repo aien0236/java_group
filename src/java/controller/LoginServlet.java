@@ -87,7 +87,8 @@ public class LoginServlet extends HttpServlet {
         if (userName == null) {
             userName = email;
         }
-        // Set the usertype to empty string if null when user is logging in
+
+         // Set the usertype to empty string if null when user is logging in
         // to prevent null error
         if (userType == null) {
             userType = "Retailer";
@@ -138,6 +139,8 @@ public class LoginServlet extends HttpServlet {
             // DON'T forget to reference userDB, rather than user
 
             User userDB = userBusinessLogic.getUser(user);
+
+            userType = userDB.getUserType();
             // User does not exist in database, redirect back to login with error message
             if (!developerMode) {
                 if (userDB == null) {
@@ -150,6 +153,8 @@ public class LoginServlet extends HttpServlet {
                 }
             }
 
+
+            System.out.println("Usertype: " + userType);
             switch (userType) {
                 case "Retailer":
                     List<Food> foods = null;
@@ -160,6 +165,9 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
                     break;
                 case "Organization":
+
+                    System.out.println("Hello");
+
                     request.getRequestDispatcher("views/organization/home.jsp").forward(request, response);
                     break;
                 case "Consumer":
