@@ -31,7 +31,7 @@
 
         <tbody>
         <% for (int i = 0; i < foods.size(); i++) { %>
-        <tr class="<%= foods.get(i).getFlag() ? "bg-error" : "" %>">
+        <tr class="<%= foods.get(i).getFlag() ? "bg-red-300" : "" %>">
             <th><%= i + 1%>
             </th>
             <td><%= foods.get(i).getFoodName()%>
@@ -48,7 +48,9 @@
             <td><%= foods.get(i).getFlag()%>
             </td>
             <td>
-                <a href="DonateFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-primary btn-sm">Donate</a>
+                <a href="DonateFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-primary btn-sm">
+                    Donate
+                </a>
             </td>
             <td>
                 <a href="EditFoodServlet?id=<%=foods.get(i).getId()%>" class="btn btn-neutral btn-sm">Edit</a>

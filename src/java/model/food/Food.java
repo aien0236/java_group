@@ -33,12 +33,16 @@ public class Food {
         return flagged;
     }
 
-    public void setFlagged(boolean flagged) {
-        this.flagged = flagged;
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
-    public boolean isFlag() {
+    public boolean getFlag() {
         return flag;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
     }
 
     public int getQuantity() {
@@ -99,21 +103,15 @@ public class Food {
         this.foodName = foodName;
     }
 
-    public boolean getFlag() {
-        return flag;
-    }
-
-    public void setFlag(boolean flag) {
-        this.flag = flag;
-    }
-
-    /**
-     * Return string representation of food.
-     * Can be used for testing purposes.
-     *
-     * @return
-     */
     public String toString() {
-        return "Food: [ " + foodName + ", " + expiration_date + ", " + flag + ", " + price + ", " + discount + ", " + foodName + " ]";
+        StringBuilder stringBuilder = new StringBuilder("Food: [ Name: " + foodName);
+        stringBuilder.append(", expiration date: " + expiration_date)
+                .append(", donated: " + flagged)
+                .append(", price: " + price)
+                .append(", discount: " + discount)
+                .append(", foodtype: " + foodtype + " ]");
+        return stringBuilder.toString();
     }
+
+
 }
