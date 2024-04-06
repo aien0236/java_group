@@ -88,7 +88,6 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`retailer_inventory` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `food_name` VARCHAR(50) NOT NULL,
   `expiration_date` DATETIME NULL,
-  `flag` BOOLEAN NULL,
   `flagged` BOOLEAN NULL,
   `price` DECIMAL(10, 2) NULL,
   `discount` INT NULL,
