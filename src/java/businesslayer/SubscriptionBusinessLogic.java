@@ -1,34 +1,35 @@
 package businesslayer;
 
-import dataaccesslayer.FoodDaoImpl;
-import dataaccesslayer.subscription.impl.SubscriptionDaoImp;
-import model.food.Food;
+import dataaccesslayer.subscription.impl.SubscriptionDaoImpl;
 import model.subscription.Subscription;
 
 import java.util.List;
 
 public class SubscriptionBusinessLogic {
-    private SubscriptionDaoImpl subscrDao = null;
+    private SubscriptionDaoImpl dao;
 
     public SubscriptionBusinessLogic() {
-        subscrDao = new SubscriptionDaoImpl();
+        dao = new SubscriptionDaoImpl();
     }
 
-    public boolean addSubscription(Subscription Subscription) {
-        return subscrDao.addSubscription(Subscription);
-    }
-//check the subscription by search id.
-//    public Subscription getSubscriptionById(int subscriptionId) {
-//        return subscrDao.getSubscriptionById(foodId);
-//    }
-
-    public boolean updateSubFood(Subscription Subscription) {
-
-        return subscrDao.updateSubFood(food);
+    public void addSubscription(Subscription Subscription) {
+        dao.add(Subscription);
     }
 
-    public boolean deleteSubscription(Subscription Subscription) {
-
-        return subscrDao.deleteSubFood(food);
+    public List<Subscription> getAllSubscription() {
+        return dao.findAll();
     }
+
+    public Subscription getSubscriptionById(int subscriptionId) {
+        return dao.findById(subscriptionId);
+    }
+
+    public void updateSubFood(Subscription subscription) {
+        dao.update(subscription);
+    }
+
+    public void deleteSubscription(Integer id) {
+        dao.delete(id);
+    }
+
 }
