@@ -17,24 +17,24 @@ class FoodFlaggerTest {
         Food food = new Food();
         food.setQuantity(50);
         food.setExpiration_date(Timestamp.from(Instant.now()));
-        assertTrue(FoodFlagger.isFoodFlaggable(food), "Food should be flagged as true");
+        assertTrue(FoodFlagger.isFoodFlaggable(food), "Food should be donated as true");
 
         // test to see if it doesn't flag if the expiration date with longer than a week (10 days)
         Food food2 = new Food();
         food.setQuantity(5);
         food.setExpiration_date(Timestamp.from(Instant.from(Instant.now().plus(10, ChronoUnit.DAYS))));
-        assertFalse(FoodFlagger.isFoodFlaggable(food), "Food should be flagged as false");
+        assertFalse(FoodFlagger.isFoodFlaggable(food), "Food should be donated as false");
 
-        // test to see if excess quantity causes it to be flagged
+        // test to see if excess quantity causes it to be donated
         Food food3 = new Food();
         food.setQuantity(50);
         food.setExpiration_date(Timestamp.from(Instant.from(Instant.now().plus(10, ChronoUnit.DAYS))));
-        assertTrue(FoodFlagger.isFoodFlaggable(food), "Food should be flagged as true");
+        assertTrue(FoodFlagger.isFoodFlaggable(food), "Food should be donated as true");
     }
 
     @Test
     public void testCheckAndUpdateFlags() {
-        // create an array list of foods. The first should be flagged as true and second false
+        // create an array list of foods. The first should be donated as true and second false
         List<Food> foodList = new ArrayList<>();
         // set the quanttiy to 50 and time to now to flag it as true
         Food food1 = new Food();
@@ -50,9 +50,9 @@ class FoodFlaggerTest {
         foodList.add(food2);
 
         foodList = FoodFlagger.flagAndUpdateList(foodList);
-        assertTrue(foodList.get(0).getFlag(), "First food should be flagged to true");
+        assertTrue(foodList.get(0).getFlag(), "First food should be donated to true");
 
-        assertFalse(foodList.get(1).getFlag(), "Second food should be flagged to false");
+        assertFalse(foodList.get(1).getFlag(), "Second food should be donated to false");
     }
 
 }

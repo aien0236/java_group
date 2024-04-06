@@ -166,7 +166,7 @@ public class LoginServlet extends HttpServlet {
                     break;
                 case "Organization":
 
-                    System.out.println("Hello");
+                    System.out.println("Logged in as Organization");
 
                     request.getRequestDispatcher("views/organization/home.jsp").forward(request, response);
                     break;

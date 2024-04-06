@@ -62,6 +62,15 @@
         <servlet-name>controller.OrganizationServlet</servlet-name>
         <url-pattern>/OrganizationServlet</url-pattern>
     </servlet-mapping>
+    <!-- Claim Food Servlet Routing Table -->
+    <servlet>
+        <servlet-name>controller.organization.ClaimFoodServlet</servlet-name>
+        <servlet-class>controller.organization.ClaimFoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.organization.ClaimFoodServlet</servlet-name>
+        <url-pattern>/ClaimFoodServlet</url-pattern>
+    </servlet-mapping>
     <!-- Consumer Servlet Routing Table -->
     <servlet>
         <servlet-name>controller.ConsumerServlet</servlet-name>

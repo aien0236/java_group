@@ -23,8 +23,8 @@ public class FoodsBusinessLogic {
         return foodsDao.getAllFoods();
     }
 
-    public List<Food> getFlaggedFoods() {
-        return foodsDao.getFlaggedFoods();
+    public List<Food> getDonatedFoods() {
+        return foodsDao.getDonatedFoods();
     }
 
     public boolean addFood(Food food) {
@@ -42,4 +42,6 @@ public class FoodsBusinessLogic {
     public boolean donateFood(Food food) {
         return foodsDao.donateFood(food);
     }
+
+    public boolean claimFood(int foodId, int loggedInUserId) { return foodsDao.claimFood(foodId, loggedInUserId); }
 }
