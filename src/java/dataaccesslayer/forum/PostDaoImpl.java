@@ -175,7 +175,7 @@ public class PostDaoImpl {
         try {
             DataSource ds = new DataSource();
             con = ds.createConnection();
-            pstmt = con.prepareStatement("UPDATE posts SET post_name = ?, expiration_date = ?, flag = ?, flagged = ?, price = ?, discount = ?, posttype = ?, quantity = ?, retailer_id = ? " +
+            pstmt = con.prepareStatement("UPDATE posts SET post_name = ?, expiration_date = ?, flag = ?, donated = ?, price = ?, discount = ?, posttype = ?, quantity = ?, retailer_id = ? " +
                     "WHERE id = ?");
             pstmt.setString(1, post.getTitle());
             pstmt.setString(2, post.getContent());

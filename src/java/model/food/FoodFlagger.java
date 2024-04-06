@@ -20,17 +20,17 @@ public class FoodFlagger {
     public static boolean isFoodFlaggable(Food food) {
         Timestamp weekFromNow = Timestamp.from(Instant.now().plus(7, ChronoUnit.DAYS));
         Timestamp foodTime = food.getExpiration_date();
-        boolean isFlagged = false;
+        boolean isDonated = false;
         // check if food quantity is above limit
         if (food.getQuantity() > SURPLUS_LIMIT) {
-            isFlagged = true;
+            isDonated = true;
         }
 
         // check if the food is within the expiration date
         if (foodTime.before(weekFromNow)) {
-            isFlagged = true;
+            isDonated = true;
         }
-        return isFlagged;
+        return isDonated;
     }
 
     /**

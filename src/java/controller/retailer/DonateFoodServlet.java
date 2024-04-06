@@ -27,7 +27,7 @@ public class DonateFoodServlet extends HttpServlet {
         int foodId = Integer.parseInt(req.getParameter("id"));
         // get food from database based on provided id
         Food food = foodsBusinessLogic.getFoodById(foodId);
-        // donate the food (set flagged to true in database for the food)
+        // donate the food (set donated to true in database for the food)
         boolean successfullyDonated = foodsBusinessLogic.donateFood(food);
         System.out.println("in: " + this.getClass().toString());
         // redirect back to homepage if donation successful

@@ -32,7 +32,7 @@ public class OrganizationServlet extends HttpServlet {
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
         List<Food> foods = null;
 
-        foods = foodBusinessLogic.getFlaggedFoods();
+        foods = foodBusinessLogic.getDonatedFoods();
         System.out.println(foods);
 
         request.setAttribute("foods", foods);
