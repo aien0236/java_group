@@ -4,6 +4,10 @@
 
 <%
     List<Food> foods = (List<Food>) request.getAttribute("foods");
+    System.out.println("foodz");
+    for (Food food : foods) {
+        System.out.println(food.toString());
+    }
     foods = FoodFlagger.flagAndUpdateList(foods);
 
 

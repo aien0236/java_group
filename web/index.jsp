@@ -34,7 +34,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     }
 
 %>
-<div class="p-6 mx-auto max-w-4xl border-2 border-gray-400 p-4 rounded-md bg-base-200">
+<div class="p-6 mx-auto max-w-4xl shadow-md p-4 rounded-md bg-base-200">
     <h1 class="text-2xl">Login Page</h1>
     <FORM ACTION="LoginServlet" METHOD="POST">
 
@@ -56,7 +56,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <br>
         <INPUT id='password' class='input input-bordered mt-2' TYPE="password" NAME="password" value= <%=password%>><BR>
 
-      
+
         <br>
         <p>Don't have an account? <a class="link link-primary" href="signup.jsp">Sign up</a></p>
         <BR>

@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<div class='border-2 border-gray-400 p-4 rounded-md bg-base-200 inline-block'>
+<div class='shadow-md p-4 rounded-md bg-base-200 inline-block'>
     <h2 class="text-2xl">Add Food</h2>
     <FORM ACTION="RetailerServlet" METHOD="POST">
 
@@ -84,7 +84,7 @@
         </table>
         <button class="btn btn-primary" type="submit">
             Add Food
-            <img src="images/plus_icon_white_24.png" width="20" height="20"/>
+            <img src="images/plus_icon_white_24.png" width="16" height="16"/>
         </button>
 
     </FORM>
