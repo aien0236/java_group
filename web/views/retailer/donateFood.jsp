@@ -57,7 +57,7 @@
     </div>
 
     <h1 class='text-3xl mb-2'>Donate Food</h1>
-    <div class="max-w-md bg-base-200 p-4 divide-y divide-accent-content">
+    <div class="max-w-md bg-base-200 p-4 divide-y divide-accent-content shadow-md">
         <div class='pb-2'>
 
 

@@ -30,12 +30,21 @@
 <body>
 <%@ include file="../../components/header.jsp" %>
 
+<%
+    String errorMessage = (String) request.getAttribute("errorMessage");
+
+%>
 <div class="p-6 mx-auto max-w-4xl">
     <a href="Homepage" class='link link-primary'>Homepage</a>
     <h1 class='text-3xl mb-4'>Retailer <%= username%>
     </h1>
 
     <%@ include file="addFood.jsp" %>
+    <% if (errorMessage != null) {%>
+    <p class="text-red-500 mt-2">
+        <%= errorMessage%>
+    </p>
+    <% } %>
     <%@ include file="inventory.jsp" %>
 </div>
 

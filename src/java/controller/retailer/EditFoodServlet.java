@@ -38,7 +38,6 @@ public class EditFoodServlet extends HttpServlet {
         String foodName = req.getParameter("foodName");
         String expirationDateString = req.getParameter("expirationDate");
         Timestamp expirationDate = Timestamp.valueOf(LocalDateTime.parse(expirationDateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
-        boolean flag = Boolean.parseBoolean(req.getParameter("flag"));
         double price = Double.parseDouble(req.getParameter("price"));
         int discount = Integer.parseInt(req.getParameter("discount"));
         String foodtype = req.getParameter("foodtype");
@@ -48,7 +47,6 @@ public class EditFoodServlet extends HttpServlet {
         Food food = new Food();
         food.setFoodName(foodName);
         food.setExpiration_date(expirationDate);
-        food.setFlag(flag);
         food.setPrice(price);
         food.setDiscount(discount);
         food.setFoodtype(foodtype);
