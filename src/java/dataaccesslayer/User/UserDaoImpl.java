@@ -184,10 +184,11 @@ public class UserDaoImpl extends UserDao {
             // create connection and query
             DataSource ds = new DataSource();
             conn = ds.createConnection();
-            String query = "SELECT * FROM USER WHERE email = ? AND password = ? LIMIT 1";
+            String query = "SELECT * FROM USER WHERE email = ? OR user_name = ? AND password = ? LIMIT 1";
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, user.getEmail());
-            pstmt.setString(2, user.getPassword());
+            pstmt.setString(2, user.getEmail());
+            pstmt.setString(3, user.getPassword());
 
             // execute insert
             rs = pstmt.executeQuery();
