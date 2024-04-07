@@ -4,6 +4,7 @@
     <welcome-file-list>
         <welcome-file>
 <!--            views/forum/home.jsp-->
+<!--            views/consumer/home.jsp-->
             index.jsp
         </welcome-file>
     </welcome-file-list>
@@ -74,7 +75,7 @@
     <!-- Consumer Servlet Routing Table -->
     <servlet>
         <servlet-name>controller.ConsumerServlet</servlet-name>
-        <servlet-class>controller.ConsumerServlet</servlet-class>
+        <servlet-class>controller.consumer.ConsumerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>controller.ConsumerServlet</servlet-name>
