@@ -134,9 +134,10 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`retailer_inventory` (
   `foodtype` VARCHAR(50) NULL,
   `quantity` INT NOT NULL,
   `retailer_id` INT NOT NULL,
-   CONSTRAINT FK_retailer_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
-  PRIMARY KEY (`id`)) ON DELETE CASCADE
-ENGINE = InnoDB;
+   PRIMARY KEY (`id`),
+   CONSTRAINT FK_retailer_userid FOREIGN KEY (retailer_id) REFERENCES user(id)
+   ON DELETE CASCADE)
+      ENGINE = InnoDB;
 
 
 
@@ -271,7 +272,7 @@ WHERE id = food_id;
 DELETE FROM retailer_inventory WHERE id = food_id;
 
 -- Insert a new item into organization_inventory
-INSERT INTO consumer_inventory (food_name, expiration_date, quantity, foodtype, consumer_id)
+INSERT INTO consumers_inventory (food_name, expiration_date, quantity, foodtype, consumer_id)
 VALUES (food_name_sel, expiration_date_sel, quantity_sel, foodtype_sel, consumer_id_in);
 
 -- Get the id of the inserted organization_inventory
@@ -287,8 +288,9 @@ ROLLBACK;
 END IF;
 
     -- Insert a new item into organization_claim_history
-INSERT INTO consumer_claim_history (user_id, claim_con_inv_id)
-VALUES (consumer_id_in, con_inventory_id);
+    -- Some typo need to be check
+# INSERT INTO consumer_claim_history (user_id, claim_con_inv_id)
+# VALUES (consumer_id_in, con_inventory_id);
 
 SELECT LAST_INSERT_ID() INTO new_consumer_claim_id;
 
