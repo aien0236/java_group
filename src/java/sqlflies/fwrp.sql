@@ -38,13 +38,33 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `FWRP`.`consumers_inventory` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`consumers_inventory` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `inventory_id` INT NOT NULL AUTO_INCREMENT,
   `food_name` VARCHAR(50) NULL,
   `expiration_date` VARCHAR(50) NULL,
-  PRIMARY KEY (`id`))
+  `quantity` INT NOT NULL,
+  `foodtype` VARCHAR(50) NULL,
+  `consumer_id` INT NOT NULL,
+  CONSTRAINT FK_consumer_inv_consumer FOREIGN KEY (consumer_id)
+  REFERENCES user(id) ON DELETE CASCADE,
+  PRIMARY KEY (`inventory_id`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `FWRP`.`consumer_claim_history`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FWRP`.`consumer_claim_history` ;
 
+CREATE TABLE IF NOT EXISTS `FWRP`.`consumer_claim_history` (
+    `con_claim_id` INT NOT NULL AUTO_INCREMENT,
+    `claim_con_inv_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    claimed_time TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT FK_con_claim_history_con_inv FOREIGN KEY (claim_con_inv_id)
+    REFERENCES consumers_inventory(inventory_id),
+    CONSTRAINT FK_con_claim_history_userid FOREIGN KEY (user_id)
+    REFERENCES user(id) ON DELETE CASCADE,
+    PRIMARY KEY (`con_claim_id`))
+    ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `FWRP`.`organization_inventory`
 -- -----------------------------------------------------
@@ -63,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`organization_inventory` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `FWRP`.`claim_history`
+-- Table `FWRP`.`organization_claim_history`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `FWRP`.`organization_claim_history` ;
 
@@ -200,6 +220,80 @@ SELECT LAST_INSERT_ID() INTO new_org_claim_id;
 
 -- Check if the organization_claim insert was successful
 IF new_org_claim_id IS NOT NULL THEN
+		SET success = TRUE;
+ELSE -- Send error message not successful
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'organization_claim insert was not successful';
+ROLLBACK;
+END IF;
+
+COMMIT;
+
+
+END //
+DELIMITER ;
+
+
+-- Procedure to remove food from retailer_inventory, add it to consumer_inventory and add it to
+-- consumer_claim_history
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS `FWRP`.`claimFoodByConsumer`;
+
+CREATE PROCEDURE IF NOT EXISTS `FWRP`.claimFoodByConsumer(
+	food_id INT,
+	consumer_id_in INT,
+    OUT success BOOLEAN
+	)
+BEGIN
+	-- Declare variables to hold values
+    DECLARE consumer_inv_id INT;
+    DECLARE new_consumer_claim_id INT;
+    DECLARE food_name_sel VARCHAR(50);
+    DECLARE expiration_date_sel DATETIME;
+    DECLARE price_sel DECIMAL(10, 2);
+    DECLARE discount_sel INT;
+    DECLARE foodtype_sel VARCHAR(50);
+    DECLARE quantity_sel INT;
+
+    -- Set variables
+    SET success = FALSE;
+
+START TRANSACTION;
+-- Get the data fields from the food to insert into a new organization_inventory
+SELECT food_name, expiration_date, price, discount, foodtype, quantity
+INTO food_name_sel, expiration_date_sel, price_sel, discount_sel, foodtype_sel, quantity_sel
+FROM retailer_inventory
+WHERE id = food_id;
+
+
+-- Delete the retailer inventory
+DELETE FROM retailer_inventory WHERE id = food_id;
+
+-- Insert a new item into organization_inventory
+INSERT INTO consumer_inventory (food_name, expiration_date, quantity, foodtype, consumer_id)
+VALUES (food_name_sel, expiration_date_sel, quantity_sel, foodtype_sel, consumer_id_in);
+
+-- Get the id of the inserted organization_inventory
+SELECT LAST_INSERT_ID() INTO consumer_inv_id;
+
+-- Check if the organization_inventory insertion was successful
+IF consumer_inv_id IS NOT NULL THEN
+		SET success = TRUE;
+ELSE -- Send error message if not successful
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'organization_inventory insert was not successful';
+ROLLBACK;
+END IF;
+
+    -- Insert a new item into organization_claim_history
+INSERT INTO consumer_claim_history (user_id, claim_con_inv_id)
+VALUES (consumer_id_in, con_inventory_id);
+
+SELECT LAST_INSERT_ID() INTO new_consumer_claim_id;
+
+-- Check if the organization_claim insert was successful
+IF new_consumer_claim_id IS NOT NULL THEN
 		SET success = TRUE;
 ELSE -- Send error message not successful
 		SIGNAL SQLSTATE '45000'
