@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
-    List<Food> foods = foodsBusinessLogic.getAllFoods(); %>
+    List<Food> foods = foodsBusinessLogic.organizationGetAllFoodsByUserId(); %>
 <html>
 <head>
     <meta charset="UTF-8">

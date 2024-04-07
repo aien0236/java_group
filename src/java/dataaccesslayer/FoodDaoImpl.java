@@ -131,6 +131,59 @@ public class FoodDaoImpl {
         return foods;
     }
 
+    public List<Food> organizationGetAllFoodsByUserId(int userId) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Food> foods = null;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+            pstmt = con.prepareStatement(
+                    "SELECT *" +
+                            "FROM organization_inventory WHERE organization_id = ?");
+
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+            foods = new ArrayList<Food>();
+            while (rs.next()) {
+                Food food = new Food();
+                food.setId(rs.getInt("org_inv_id"));
+                food.setFoodName(rs.getString("food_name"));
+                food.setExpiration_date(rs.getTimestamp("expiration_date"));
+                food.setFoodtype(rs.getString("foodtype"));
+                food.setQuantity(rs.getInt("quantity"));
+                foods.add(food);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return foods;
+    }
+
     public List<Food> getAllAvailableFoods() {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -556,5 +609,7 @@ public class FoodDaoImpl {
         }
         return claimState;
     }
+
+
 
 }
