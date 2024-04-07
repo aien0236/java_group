@@ -51,15 +51,34 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `FWRP`.`organization_inventory` ;
 
 CREATE TABLE IF NOT EXISTS `FWRP`.`organization_inventory` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `org_inv_id` INT NOT NULL AUTO_INCREMENT,
   `food_name` VARCHAR(50) NULL,
   `expiration_date` VARCHAR(50) NULL,
   `quantity` INT NOT NULL,
   `foodtype` VARCHAR(50) NULL,
   `organization_id` INT NOT NULL,
-  CONSTRAINT FK_organization FOREIGN KEY (organization_id) REFERENCES user(id),
-  PRIMARY KEY (`id`))
+  CONSTRAINT FK_organization FOREIGN KEY (organization_id)
+    REFERENCES user(id) ON DELETE CASCADE,
+  PRIMARY KEY (`org_inv_id`))
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `FWRP`.`claim_history`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FWRP`.`organization_claim_history` ;
+
+CREATE TABLE IF NOT EXISTS `FWRP`.`organization_claim_history` (
+    `org_claim_id` INT NOT NULL AUTO_INCREMENT,
+    `claim_org_inv_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
+    claimed_time TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT FK_claim_history_org_inv FOREIGN KEY (claim_org_inv_id)
+        REFERENCES organization_inventory(org_inv_id),
+    CONSTRAINT FK_claim_history_userid FOREIGN KEY (user_id)
+        REFERENCES user(id),
+    PRIMARY KEY (`org_claim_id`))
+    ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `FWRP`.`organization_inventory`
@@ -70,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`food_donation` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `food_name` VARCHAR(50) NOT NULL,
     `expiration_date` DATETIME NULL,
-    `flag` BOOLEAN NULL,
     `price` DECIMAL(10, 2) NULL,
     `discount` INT NULL,
     `foodtype` VARCHAR(50) NULL,
@@ -97,8 +115,9 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`retailer_inventory` (
   `quantity` INT NOT NULL,
   `retailer_id` INT NOT NULL,
    CONSTRAINT FK_retailer_userid FOREIGN KEY (retailer_id) REFERENCES user(id),
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`)) ON DELETE CASCADE
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -119,3 +138,77 @@ CREATE TABLE IF NOT EXISTS `FWRP`.`subscription` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- Procedure to remove food from retailer_inventory, add it to organization_inventory and add it to
+-- organization_claim_history
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS `FWRP`.`claimFoodByOrganization`;
+
+CREATE PROCEDURE IF NOT EXISTS `FWRP`.claimFoodByOrganization(
+	food_id INT,
+	organization_id_in INT,
+    OUT success BOOLEAN
+	)
+BEGIN
+	-- Declare variables to hold values
+    DECLARE org_inv_id INT;
+    DECLARE new_org_claim_id INT;
+    DECLARE food_name_sel VARCHAR(50);
+    DECLARE expiration_date_sel DATETIME;
+    DECLARE price_sel DECIMAL(10, 2);
+    DECLARE discount_sel INT;
+    DECLARE foodtype_sel VARCHAR(50);
+    DECLARE quantity_sel INT;
+
+    -- Set variables
+    SET success = FALSE;
+
+START TRANSACTION;
+-- Get the data fields from the food to insert into a new organization_inventory
+SELECT food_name, expiration_date, price, discount, foodtype, quantity
+INTO food_name_sel, expiration_date_sel, price_sel, discount_sel, foodtype_sel, quantity_sel
+FROM retailer_inventory
+WHERE id = food_id;
+
+
+-- Delete the retailer inventory
+DELETE FROM retailer_inventory WHERE id = food_id;
+
+-- Insert a new item into organization_inventory
+INSERT INTO organization_inventory (food_name, expiration_date, quantity, foodtype, organization_id)
+VALUES (food_name_sel, expiration_date_sel, quantity_sel, foodtype_sel, organization_id_in);
+
+-- Get the id of the inserted organization_inventory
+SELECT LAST_INSERT_ID() INTO org_inv_id;
+
+-- Check if the organization_inventory insertion was successful
+IF org_inv_id IS NOT NULL THEN
+		SET success = TRUE;
+ELSE -- Send error message if not successful
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'organization_inventory insert was not successful';
+ROLLBACK;
+END IF;
+
+    -- Insert a new item into organization_claim_history
+INSERT INTO organization_claim_history (user_id, claim_org_inv_id)
+VALUES (organization_id_in, org_inv_id);
+
+SELECT LAST_INSERT_ID() INTO new_org_claim_id;
+
+-- Check if the organization_claim insert was successful
+IF new_org_claim_id IS NOT NULL THEN
+		SET success = TRUE;
+ELSE -- Send error message not successful
+		SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'organization_claim insert was not successful';
+ROLLBACK;
+END IF;
+
+COMMIT;
+
+
+END //
+DELIMITER ;

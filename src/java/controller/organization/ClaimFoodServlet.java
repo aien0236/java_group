@@ -1,6 +1,7 @@
 package controller.organization;
 
 import businesslayer.FoodsBusinessLogic;
+import dataaccesslayer.User.UserCookies;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +19,11 @@ public class ClaimFoodServlet extends HttpServlet {
 
         // Get the logged-in user ID from the session
         HttpSession session = request.getSession();
-        int loggedInUserId = (int) session.getAttribute("userId");
+        int loggedInUserId = Integer.parseInt(UserCookies.getCookieMap(request).get("id"));
 
         // Call a method in the business logic layer to mark the food item as claimed
         FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
-        boolean claimed = foodsBusinessLogic.claimFood(foodId, loggedInUserId);
+        boolean claimed = foodsBusinessLogic.claimFoodByOrganization(loggedInUserId, foodId);
 
         // Redirect back to the organization inventory page
         if (claimed) {

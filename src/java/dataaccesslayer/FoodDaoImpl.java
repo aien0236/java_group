@@ -8,15 +8,14 @@
  */
 package dataaccesslayer;
 
+import java.lang.reflect.Type;
+import java.sql.*;
 import java.util.List;
 
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import model.food.Food;
+import model.users.User;
 
 public class FoodDaoImpl {
 
@@ -34,6 +33,61 @@ public class FoodDaoImpl {
             pstmt = con.prepareStatement(
                     "SELECT id, food_name, expiration_date, price, discount, foodtype, quantity, retailer_id " +
                             "FROM retailer_inventory WHERE donated = false");
+            rs = pstmt.executeQuery();
+            foods = new ArrayList<Food>();
+            while (rs.next()) {
+                Food food = new Food();
+                food.setId(rs.getInt("id"));
+                food.setFoodName(rs.getString("food_name"));
+                food.setExpiration_date(rs.getTimestamp("expiration_date"));
+                food.setPrice(rs.getDouble("price"));
+                food.setDiscount(rs.getInt("discount"));
+                food.setFoodtype(rs.getString("foodtype"));
+                food.setQuantity(rs.getInt("quantity"));
+                food.setUser_id(rs.getInt("retailer_id"));
+                foods.add(food);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return foods;
+    }
+
+    public List<Food> getAllFoodsByUserId(int userId) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Food> foods = null;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+            pstmt = con.prepareStatement(
+                    "SELECT id, food_name, expiration_date, price, discount, foodtype, quantity, retailer_id " +
+                            "FROM retailer_inventory WHERE donated = false AND retailer_id = ?");
+            pstmt.setInt(1, userId);
             rs = pstmt.executeQuery();
             foods = new ArrayList<Food>();
             while (rs.next()) {
@@ -120,6 +174,68 @@ public class FoodDaoImpl {
             }
         }
         return foods;
+    }
+
+    public boolean claimFoodByOrganization(int userId, int foodId) {
+        Connection con = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        ArrayList<Food> foods = null;
+        String query = "{ call claimFoodByOrganization(?, ?, ?)}";
+
+
+        boolean state = false;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+
+            // prepare the statement
+            callableStatement = con.prepareCall(query);
+            callableStatement.setInt(1, foodId);
+            callableStatement.setInt(2, userId);
+            callableStatement.registerOutParameter(3, Types.BOOLEAN);
+
+            // execute the stored procedure
+            callableStatement.execute();
+
+            // Get the result if the procedure succeeded
+            state = callableStatement.getBoolean(3);
+
+            // output message based on procedure result state
+            if (state) {
+                System.out.println("claimFoodByOrganization procedure executed successfully");
+            } else {
+                System.out.println("claimFoodByOrganization procedure failed to execute");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return state;
+
     }
 
     public List<Food> getDonatedFoods() {

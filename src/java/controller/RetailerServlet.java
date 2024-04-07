@@ -36,8 +36,8 @@ public class RetailerServlet extends HttpServlet {
             throws ServletException, IOException {
         FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
         List<Food> foods = null;
-
-        foods = foodsBusinessLogic.getAllFoods();
+        int userId = Integer.parseInt(UserCookies.getCookieMap(request).get("id"));
+        foods = foodsBusinessLogic.getAllFoodsByUserId(userId);
 
         request.setAttribute("foods", foods);
         System.out.println("in: " + this.getClass().toString());
