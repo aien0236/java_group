@@ -100,19 +100,7 @@
                    name="expirationDate"
                    value=<%= expirationDate%>>
             <br>
-
-
-            <label>
-                Flag
-            </label>
-            <br>
-            <input type="radio" id="true" name="flag" value="true">
-            <label for="true">True</label>
-            <input type="radio" id="false" name="flag" value="false">
-            <label for="false">False</label>
-            <br>
-            <div class="mb-4"></div>
-
+            
             <label for="price">
                 Price
             </label>

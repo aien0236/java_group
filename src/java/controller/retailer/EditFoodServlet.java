@@ -43,6 +43,7 @@ public class EditFoodServlet extends HttpServlet {
         String foodtype = req.getParameter("foodtype");
         int quantity = Integer.parseInt(req.getParameter("quantity"));
         int id = Integer.parseInt(req.getParameter("id"));
+
         // create the food item
         Food food = new Food();
         food.setFoodName(foodName);
@@ -52,8 +53,10 @@ public class EditFoodServlet extends HttpServlet {
         food.setFoodtype(foodtype);
         food.setQuantity(quantity);
         food.setId(id);
+
         // update the food
         boolean foodUpdated = foodsBusinessLogic.updateFood(food);
+        
         // food successfully updated
         if (foodUpdated) {
             // get food list and redirect back to retailer home page
