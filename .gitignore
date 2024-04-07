@@ -40,4 +40,6 @@ pom.xml
 mvnw
 mvnw.cmd
 
+### Misc ###
 database.properties
+DataSource.java
