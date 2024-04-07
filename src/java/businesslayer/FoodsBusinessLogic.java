@@ -30,6 +30,11 @@ public class FoodsBusinessLogic {
     public List<Food> organizationGetAllFoodsByUserId(int userId) {
         return foodsDao.organizationGetAllFoodsByUserId(userId);
     }
+    public List<Food> consumerGetAllFoodsByUserId(int userId) {
+        return foodsDao.consumerGetAllFoodsByUserId(userId);
+    }    public List<Food> getFoodsByType(String foodtype) {
+        return foodsDao.getFoodsByType(foodtype);
+    }
 
     public List<Food> getDonatedFoods() {
         return foodsDao.getDonatedFoods();

@@ -39,16 +39,51 @@ public class ConsumerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // get a list of donated foods
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
         List<Food> foods = null;
 
-        foods = foodBusinessLogic.getDonatedFoods();
+        System.out.println("In ConsumerServlet");
+        String purpose  = request.getParameter("purpose");
+        String foodtype  = request.getParameter("foodtype");
 
-        request.setAttribute("foods", foods);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/consumer/inventory.jsp");
-        dispatcher.forward(request, response);
-
+        if (purpose != null){
+            switch (purpose){
+                case "sort-by-food-type":
+                    System.out.println(purpose);
+                    switch (foodtype){
+                        case "fruits":
+                            System.out.println(foodtype);
+                            foods = foodBusinessLogic.getFoodsByType("Fruits & Vegetables");
+                            System.out.println(foods);
+                            break;
+                        case "dairy":
+                            foods = foodBusinessLogic.getFoodsByType("Dairy & Eggs");
+                            break;
+                        case "meat":
+                            foods = foodBusinessLogic.getFoodsByType("Meat & Seafood");
+                            break;
+                        case "grains":
+                            foods = foodBusinessLogic.getFoodsByType("Grains & Starches");
+                            break;
+                        case "desserts":
+                            foods = foodBusinessLogic.getFoodsByType("Desserts");
+                            break;
+                        case "other":
+                            foods = foodBusinessLogic.getFoodsByType("Other");
+                            break;
+                    }
+                    request.setAttribute("foods", foods);
+                    request.getRequestDispatcher("views/consumer/home.jsp").forward(request, response);
+                    break;
+                default:
+                    request.getRequestDispatcher("views/consumer/home.jsp").forward(request, response);
+                    break;
+            }
+        }else {
+            request.getRequestDispatcher("views/forum/home.jsp").forward(request, response);
+        }
     }
 
     /**
