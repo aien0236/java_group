@@ -1,4 +1,14 @@
-package controller;
+/*
+ * File: ForumServlet.java
+ * Author: Benson Chang
+ * Date: 2024.03.25
+ * Description: Implementation of Servlet website
+ *
+ * References:
+ * [1] Unknown. AuthorServlet.java. Algonquin College, Ottawa.
+ *     Retrieved from W10 - 2-AuthorsJSP.
+ */
+package controller.consumer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

@@ -40,7 +40,7 @@ public class RetailerServlet extends HttpServlet {
         foods = foodsBusinessLogic.getAllFoodsByUserId(userId);
 
         request.setAttribute("foods", foods);
-        System.out.println("in: " + this.getClass().toString());
+        System.out.println("in: " + this.getClass());
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/retailer/home.jsp");
         dispatcher.forward(request, response);
 
@@ -92,7 +92,7 @@ public class RetailerServlet extends HttpServlet {
             foodtype = request.getParameter("foodtype");
             quantity = Integer.parseInt(request.getParameter("quantity"));
         } catch (Exception e) {
-            request.setAttribute("errorMessage", "Invalid data input: " + e.getMessage());
+            request.setAttribute("errorMessage", "Invalid data.sql input: " + e.getMessage());
             doGet(request, response);
         }
         // create the food item
