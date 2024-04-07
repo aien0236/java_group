@@ -238,6 +238,69 @@ public class FoodDaoImpl {
 
     }
 
+
+    public boolean claimFoodByConsumer(int userId, int foodId) {
+        Connection con = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        ArrayList<Food> foods = null;
+        String query = "{ call claimFoodByConsumer(?, ?, ?)}";
+
+
+        boolean state = false;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+
+            // prepare the statement
+            callableStatement = con.prepareCall(query);
+            callableStatement.setInt(1, foodId);
+            callableStatement.setInt(2, userId);
+            callableStatement.registerOutParameter(3, Types.BOOLEAN);
+
+            // execute the stored procedure
+            callableStatement.execute();
+
+            // Get the result if the procedure succeeded
+            state = callableStatement.getBoolean(3);
+
+            // output message based on procedure result state
+            if (state) {
+                System.out.println("claimFoodByConsumer procedure executed successfully");
+            } else {
+                System.out.println("claimFoodByConsumer procedure failed to execute");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return state;
+
+    }
+
     public List<Food> getDonatedFoods() {
         Connection con = null;
         PreparedStatement pstmt = null;
