@@ -29,15 +29,38 @@ public class OrganizationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // get a list of donated foods
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
         List<Food> foods = null;
 
-        foods = foodBusinessLogic.getFlaggedFoods();
+        foods = foodBusinessLogic.getDonatedFoods();
         System.out.println(foods);
 
+        // set the donated foods to the request
         request.setAttribute("foods", foods);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/organization/inventory.jsp");
+        // page in url get req. Ex. OrganizationServlet?page=foodClaims
+        String pageRequest = request.getParameter("page");
+
+        // make sure pageRequest isn't null to avoid error (meaning query param not sent in url)
+        if (pageRequest != null) {
+
+            // redirect to foodClaims page based on url parameter
+            if (pageRequest.equals("foodClaims")) {
+                request.getRequestDispatcher("views/organization/availableFoods.jsp").forward(request, response);
+            }
+            // redirect to foodClaims page based on url parameter
+            else if (pageRequest.equals("organizationFoods")) {
+                request.getRequestDispatcher("views/organization/claimedFoods.jsp").forward(request, response);
+            }
+            // redirect to foodClaims page based on url parameter
+            else if (pageRequest.equals("organizationFoodHistory")) {
+                request.getRequestDispatcher("views/organization/history.jsp").forward(request, response);
+            }
+        }
+
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/organization/home.jsp");
         dispatcher.forward(request, response);
 
     }

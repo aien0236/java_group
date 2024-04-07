@@ -16,7 +16,7 @@ public class Food {
     private String foodName;
     private Timestamp expiration_date;
     private boolean flag;
-    private boolean flagged;
+    private boolean donated;
     private double price;
     private int discount;
     private String foodtype;
@@ -29,8 +29,8 @@ public class Food {
         this.user_id = user_id;
     }
 
-    public boolean isFlagged() {
-        return flagged;
+    public boolean isDonated() {
+        return donated;
     }
 
     public void setFlag(boolean flag) {
@@ -41,8 +41,8 @@ public class Food {
         return flag;
     }
 
-    public void setFlagged(boolean flagged) {
-        this.flagged = flagged;
+    public void setDonated(boolean donated) {
+        this.donated = donated;
     }
 
     public int getQuantity() {
@@ -106,7 +106,7 @@ public class Food {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("Food: [ Name: " + foodName);
         stringBuilder.append(", expiration date: " + expiration_date)
-                .append(", donated: " + flagged)
+                .append(", donated: " + donated)
                 .append(", price: " + price)
                 .append(", discount: " + discount)
                 .append(", foodtype: " + foodtype + " ]");

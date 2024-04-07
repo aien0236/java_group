@@ -94,7 +94,7 @@
 
                 <tr>
                     <td>
-                        <p> Flagged: </p>
+                        <p> donated: </p>
                     </td>
                     <td>
                         <p class="font-bold"><%= food.getFlag()%>

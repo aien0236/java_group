@@ -10,6 +10,7 @@ import dataaccesslayer.FoodDaoImpl;
 import java.util.List;
 
 import model.food.Food;
+import model.users.User;
 
 public class FoodsBusinessLogic {
 
@@ -23,8 +24,15 @@ public class FoodsBusinessLogic {
         return foodsDao.getAllFoods();
     }
 
-    public List<Food> getFlaggedFoods() {
-        return foodsDao.getFlaggedFoods();
+    public List<Food> getAllFoodsByUserId(int userId) {
+        return foodsDao.getAllFoodsByUserId(userId);
+    }
+    public List<Food> organizationGetAllFoodsByUserId(int userId) {
+        return foodsDao.organizationGetAllFoodsByUserId(userId);
+    }
+
+    public List<Food> getDonatedFoods() {
+        return foodsDao.getDonatedFoods();
     }
 
     public boolean addFood(Food food) {
@@ -42,4 +50,10 @@ public class FoodsBusinessLogic {
     public boolean donateFood(Food food) {
         return foodsDao.donateFood(food);
     }
+
+    public boolean claimFoodByOrganization(int userId, int foodId) {
+        return foodsDao.claimFoodByOrganization(userId, foodId);
+    }
+
+
 }

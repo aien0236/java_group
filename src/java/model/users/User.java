@@ -65,7 +65,7 @@ public abstract class User {
      * @return
      */
     public String toString() {
-        return "User: [ " + username + ", " + email + ", " + password + ", " + userType + " ]";
+        return "User: [ " + username + ", " + email + ", " + password + ", " + userType + "userid = " + id + " ]";
     }
 }
 
