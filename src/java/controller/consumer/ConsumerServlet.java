@@ -46,7 +46,7 @@ public class ConsumerServlet extends HttpServlet {
 
         request.setAttribute("foods", foods);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/consumer/inventory.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/consumer/claimedFoods.jsp");
         dispatcher.forward(request, response);
 
     }
