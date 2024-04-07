@@ -1,14 +1,8 @@
 <%@page import="businesslayer.FoodsBusinessLogic" %>
 <%@page import="java.util.List" %>
 <%@page import="model.food.Food" %>
-<%@ page import="businesslayer.UserBusinessLogic" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    Map<String, String> cookieMap = UserCookies.getCookieMap(request);
-    String id = cookieMap.get("id");
-    System.out.println(id);
-    FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
-    List<Food> foods = foodsBusinessLogic.organizationGetAllFoodsByUserId(Integer.parseInt(id)); %>
+<% List<Food> foods = (List<Food>) request.getAttribute("foods"); %>
 <html>
 <head>
     <title>Organization Inventory</title>
@@ -68,7 +62,7 @@
             </thead>
             <tbody>
             <% for (int i = 0; i < foods.size(); i++) { %>
-            <tr >
+            <tr class="<%= foods.get(i).getFlag() ? "bg-error" : "" %>">
                 <th><%= i + 1%>
                 </th>
                 <td><%= foods.get(i).getFoodName()%>

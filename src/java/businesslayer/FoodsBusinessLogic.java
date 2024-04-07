@@ -27,6 +27,9 @@ public class FoodsBusinessLogic {
     public List<Food> getAllFoodsByUserId(int userId) {
         return foodsDao.getAllFoodsByUserId(userId);
     }
+    public List<Food> organizationGetAllFoodsByUserId(int userId) {
+        return foodsDao.organizationGetAllFoodsByUserId(userId);
+    }
 
     public List<Food> getDonatedFoods() {
         return foodsDao.getDonatedFoods();
