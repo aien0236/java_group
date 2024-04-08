@@ -46,12 +46,12 @@
         </ul>
     </div>
     <div class="navbar-end">
+
         <% if (usernameH != null) { %>
         <a href="/group_code_Web_exploded/LogoutServlet" class="btn">Logout</a>
         <% } else { %>
         <a href="/group_code_Web_exploded/" class="btn">Login</a>
         <% } %>
-
 
     </div>
 </div>

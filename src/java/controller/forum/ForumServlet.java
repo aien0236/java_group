@@ -66,8 +66,6 @@ public class ForumServlet extends HttpServlet {
         }else {
             request.getRequestDispatcher("views/forum/home.jsp").forward(request, response);
         }
-
-
     }
 
     /**

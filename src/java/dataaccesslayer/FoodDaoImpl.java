@@ -184,6 +184,112 @@ public class FoodDaoImpl {
         return foods;
     }
 
+    public List<Food> consumerGetAllFoodsByUserId(int userId) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Food> foods = null;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+            pstmt = con.prepareStatement(
+                    "SELECT *" +
+                            "FROM consumers_inventory WHERE consumer_id = ?");
+
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+            foods = new ArrayList<Food>();
+            while (rs.next()) {
+                Food food = new Food();
+                food.setId(rs.getInt("inventory_id"));
+                food.setFoodName(rs.getString("food_name"));
+                food.setExpiration_date(rs.getTimestamp("expiration_date"));
+                food.setFoodtype(rs.getString("foodtype"));
+                food.setQuantity(rs.getInt("quantity"));
+                foods.add(food);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return foods;
+    }
+
+    public List<Food> getFoodsByType(String foodtype) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<Food> foods = null;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+            pstmt = con.prepareStatement(
+                    "SELECT *" +
+                            "FROM retailer_inventory WHERE foodtype = ?");
+
+            pstmt.setString(1, foodtype);
+            rs = pstmt.executeQuery();
+            foods = new ArrayList<Food>();
+            while (rs.next()) {
+                Food food = new Food();
+                food.setId(rs.getInt("id"));
+                food.setFoodName(rs.getString("food_name"));
+                food.setExpiration_date(rs.getTimestamp("expiration_date"));
+                food.setFoodtype(rs.getString("foodtype"));
+                food.setQuantity(rs.getInt("quantity"));
+                foods.add(food);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return foods;
+    }
+
     public List<Food> getAllAvailableFoods() {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -426,6 +532,49 @@ public class FoodDaoImpl {
             pstmt.setString(5, food.getFoodtype());
             pstmt.setInt(6, food.getQuantity());
             pstmt.setInt(7, food.getUser_id());
+            // execute insert
+            int rowsAffected = pstmt.executeUpdate();
+
+            // true if a row was updated, so the insert was successful
+            if (rowsAffected > 0) {
+                updateState = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return updateState;
+    }
+
+    public boolean addFoodForConsumer(Food food) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        boolean updateState = false;
+        try {
+            DataSource ds = new DataSource();
+            con = ds.createConnection();
+            // do not insert AuthorID, it is generated by Database
+            pstmt = con.prepareStatement("INSERT INTO consumers_inventory (food_name, expiration_date, foodtype, quantity, consumer_id) " +
+                    "VALUES(?, ?, ?, ?, ?)");
+            pstmt.setString(1, food.getFoodName());
+            pstmt.setTimestamp(2, food.getExpiration_date());
+            pstmt.setString(3, food.getFoodtype());
+            pstmt.setInt(4, food.getQuantity());
+            pstmt.setInt(5, food.getUser_id());
             // execute insert
             int rowsAffected = pstmt.executeUpdate();
 
