@@ -151,6 +151,22 @@
             <form action="DonateFoodServlet" method="POST">
                 <input type="number" id='id' name='id' hidden value= <%= food.getId()%>>
 
+                <label for="discount">
+                    Discount %
+                </label>
+                <br>
+                <select name="discount" id="discount" class="select select-bordered mb-4 mt-2">
+                    <option value="10">10%</option>
+                    <option value="20">20%</option>
+                    <option value="30">30%</option>
+                    <option value="40">40%</option>
+                    <option value="50">50%</option>
+                    <option value="60">60%</option>
+                    <option value="70">70%</option>
+                    <option value="80">80%</option>
+
+                </select>
+                <br>
                 <button type="submit" class='btn btn-primary'>Donate</button>
             </form>
         </div>

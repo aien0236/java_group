@@ -14,7 +14,7 @@
     FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
     List<Food> foods = (List<Food>) request.getAttribute("foods");
     List<Food> cart = new ArrayList<>();
-    if (foods == null){
+    if (foods == null) {
         foods = foodsBusinessLogic.getAllFoods();
     }
 %>
@@ -36,20 +36,31 @@
 <!-- Header -->
 <%@ include file="../../components/header.jsp" %>
 
+
 <div class="navdiv">
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png" alt="cart"></a><br>
+        <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png"
+                                                                                     alt="cart"></a><br>
     </div>
 
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconhome.png" alt="cart"></a><br>
+        <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconhome.png"
+                                                                                           alt="cart"></a><br>
     </div>
 
     <div class="navitem">
-        <button id="cart" class="nav-button"><img src="images/shopping-cart.png" alt="cart"></button><br>
+        <button id="cart" class="nav-button"><img src="images/shopping-cart.png" alt="cart"></button>
+        <br>
     </div>
 </div>
 
+<div class="mx-auto max-w-4xl">
+    <div>
+        <div class="btn btn-primary">
+            <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="contentbar">
@@ -96,12 +107,13 @@
                                                             <td id="shipping">$0.00</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Tax (13%): </td>
+                                                            <td>Tax (13%):</td>
                                                             <td id="tax">$0.00</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="f-w-7 font-18"><h4>Amount :</h4></td>
-                                                            <td class="f-w-7 font-18"><h4 id="totalAmount">$0.00</h4></td>
+                                                            <td class="f-w-7 font-18"><h4 id="totalAmount">$0.00</h4>
+                                                            </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -110,8 +122,10 @@
                                         </div>
                                     </div>
                                     <div class="cart-footer text-right">
-                                        <a id="checkout-btn" class="btn btn-success my-1">Proceed to Checkout<i class="ri-arrow-right-line ml-2"></i></a>
-                                        <form id="checkoutForm" action="ConsumerServlet" method="post" style="display:none;"></form>
+                                        <a id="checkout-btn" class="btn btn-success my-1">Proceed to Checkout<i
+                                                class="ri-arrow-right-line ml-2"></i></a>
+                                        <form id="checkoutForm" action="ConsumerServlet" method="post"
+                                              style="display:none;"></form>
                                     </div>
                                 </div>
                             </div>
@@ -126,32 +140,39 @@
 </div>
 
 <div id="food-icons">
-    <div class="food-typ">
-        <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button><br>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2 rounded">
+        <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button>
+        <br>
         <span>Fruits & Vegetables</span>
     </div>
-    <div class="food-typ">
-        <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button><br>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+        <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button>
+        <br>
         <span>Fruits & Vegetables</span>
     </div>
-    <div class="food-typ">
-        <button id="dairy" class="food-button"><img src="images/icondaily.png" alt="dairy"></button><br>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+        <button id="dairy" class="food-button"><img src="images/icondaily.png" alt="dairy"></button>
+        <br>
         <span>Dairy & Eggs</span>
-    </div >
-    <div class="food-typ">
-        <button id="meat" class="food-button"><img src="images/iconmeat.png" alt="meat"></button><br>
+    </div>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+        <button id="meat" class="food-button"><img src="images/iconmeat.png" alt="meat"></button>
+        <br>
         <span>Meat & Seafood</span>
     </div>
-    <div class="food-typ">
-        <button id="grains" class="food-button"><img src="images/icongrains.png" alt="grains"></button><br>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+        <button id="grains" class="food-button"><img src="images/icongrains.png" alt="grains"></button>
+        <br>
         <span>Grains & Starches</span>
     </div>
-    <div class="food-typ">
-        <button id="desserts" class="food-button"><img src="images/icondessert.png" alt="desserts"></button><br>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+        <button id="desserts" class="food-button"><img src="images/icondessert.png" alt="desserts"></button>
+        <br>
         <span>Desserts</span>
     </div>
-    <div class="food-typ">
-        <button id="other" class="food-button"><img src="images/iconother.png" alt="other"></button><br>
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+        <button id="other" class="food-button"><img src="images/iconother.png" alt="other"></button>
+        <br>
         <span>Other</span>
     </div>
 </div>
@@ -177,15 +198,30 @@
             <% for (int i = 0; i < foods.size(); i++) { %>
             <tr class="<%= foods.get(i).getFlag() ? "bg-error" : "" %>">
                 <form class="foodForm">
-                <input type="hidden" name="id" value="<%= foods.get(i).getId() %>" />
-                <th><input type="hidden" name="number" value="<%= i + 1 %>" /><%= i + 1 %></th>
-                <td><input type="hidden" name="foodName" value="<%= foods.get(i).getFoodName() %>" /><%= foods.get(i).getFoodName()%></td>
-                <td><input type="hidden" name="price" value="<%= foods.get(i).getPrice() %>" /><%= foods.get(i).getPrice()%></td>
-                <td><input type="hidden" name="discount" value="<%= foods.get(i).getDiscount() %>" /><%= foods.get(i).getDiscount()%> %</td>
-                <td><input type="hidden" name="foodType" value="<%= foods.get(i).getFoodtype() %>" /><%= foods.get(i).getFoodtype()%></td>
-                <td><input type="hidden" name="quantity" value="<%= foods.get(i).getQuantity() %>" /><%= foods.get(i).getQuantity()%></td>
-                <td><input type="hidden" name="expirationDate" value="<%= foods.get(i).getExpiration_date() %>" /><%= foods.get(i).getExpiration_date()%></td>
-                <td><button type="submit" class="btn btn-primary btn-sm addToCartBtn" value="<%= i %>"> + </button></td>
+                    <input type="hidden" name="id" value="<%= foods.get(i).getId() %>"/>
+                    <th><input type="hidden" name="number" value="<%= i + 1 %>"/><%= i + 1 %>
+                    </th>
+                    <td><input type="hidden" name="foodName"
+                               value="<%= foods.get(i).getFoodName() %>"/><%= foods.get(i).getFoodName()%>
+                    </td>
+                    <td><input type="hidden" name="price"
+                               value="<%= foods.get(i).getPrice() %>"/><%= foods.get(i).getPrice()%>
+                    </td>
+                    <td><input type="hidden" name="discount"
+                               value="<%= foods.get(i).getDiscount() %>"/><%= foods.get(i).getDiscount()%> %
+                    </td>
+                    <td><input type="hidden" name="foodType"
+                               value="<%= foods.get(i).getFoodtype() %>"/><%= foods.get(i).getFoodtype()%>
+                    </td>
+                    <td><input type="hidden" name="quantity"
+                               value="<%= foods.get(i).getQuantity() %>"/><%= foods.get(i).getQuantity()%>
+                    </td>
+                    <td><input type="hidden" name="expirationDate"
+                               value="<%= foods.get(i).getExpiration_date() %>"/><%= foods.get(i).getExpiration_date()%>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary btn-sm addToCartBtn" value="<%= i %>"> +</button>
+                    </td>
                 </form>
             </tr>
             <% } %>
