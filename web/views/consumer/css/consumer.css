@@ -1,0 +1,50 @@
+
+/* CSS styles will go here */
+#food-icons {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.food-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.food-button img {
+    width: 50px;
+    height: auto;
+}
+
+.food-typ {
+    margin: 30px 30px;
+}
+
+.navdiv {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navitem {
+    display: block;
+    width: 30px;
+    height: 30px;
+
+    margin: 30px;
+}
+
+.cart-container {
+    display: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    background: #f4f5f7;
+    margin-top:20px;
+}
+.cart-container .cart-body {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 30px 0 20px;
+    margin: 20px 0 30px;
+}

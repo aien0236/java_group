@@ -43,6 +43,9 @@ public class FoodsBusinessLogic {
     public boolean addFood(Food food) {
         return foodsDao.addFood(food);
     }
+    public boolean addFoodForConsumer(Food food) {
+        return foodsDao.addFoodForConsumer(food);
+    }
 
     public Food getFoodById(int foodId) {
         return foodsDao.getFoodById(foodId);
@@ -57,6 +60,10 @@ public class FoodsBusinessLogic {
     }
 
     public boolean claimFoodByOrganization(int userId, int foodId) {
+        return foodsDao.claimFoodByOrganization(userId, foodId);
+    }
+
+    public boolean claimFoodByConsumer(int userId, int foodId) {
         return foodsDao.claimFoodByOrganization(userId, foodId);
     }
 
