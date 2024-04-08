@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
             userName = email;
         }
 
-         // Set the usertype to empty string if null when user is logging in
+        // Set the usertype to empty string if null when user is logging in
         // to prevent null error
         if (userType == null) {
             userType = "Retailer";
@@ -106,7 +106,7 @@ public class LoginServlet extends HttpServlet {
             if (!userValidationMessage.getState()) {
                 // set the error message to be output on index.jsp page
                 request.setAttribute("errorMessage", userValidationMessage.getValue());
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
             }
 
             boolean userCreated = userBusinessLogic.createUser(user);
@@ -137,10 +137,9 @@ public class LoginServlet extends HttpServlet {
             }
         } else if ("login".equals(action)) {
             // DON'T forget to reference userDB, rather than user
-
             User userDB = userBusinessLogic.getUser(user);
 
-            userType = userDB.getUserType();
+
             // User does not exist in database, redirect back to login with error message
             if (!developerMode) {
                 if (userDB == null) {
@@ -154,15 +153,12 @@ public class LoginServlet extends HttpServlet {
             }
 
 
+            userType = userDB.getUserType();
             System.out.println("Usertype: " + userType);
             switch (userType) {
                 case "Retailer":
-                    List<Food> foods = null;
-                    foods = foodsBusinessLogic.getAllFoods();
-                    // Send foods to retailer home page
-                    request.setAttribute("foods", foods);
                     System.out.println("To retailer homepage");
-                    request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
+                    response.sendRedirect("RetailerServlet");
                     break;
                 case "Organization":
 

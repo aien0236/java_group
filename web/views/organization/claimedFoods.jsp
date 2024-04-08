@@ -18,7 +18,9 @@
 <body>
 <%@ include file="../../components/header.jsp" %>
 <div class="mx-auto max-w-4xl">
-
+    <h1 class='text-3xl font-bold mb-4'>
+        Your Claimed Foods
+    </h1>
     <div class="text-sm breadcrumbs mb-8">
         <ul>
             <li>
@@ -67,7 +69,7 @@
             </thead>
             <tbody>
             <% for (int i = 0; i < foods.size(); i++) { %>
-            <tr >
+            <tr>
                 <th><%= i + 1%>
                 </th>
                 <td><%= foods.get(i).getFoodName()%>
