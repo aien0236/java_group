@@ -13,7 +13,13 @@ public interface SubscriptionDao {
 
     void delete(long id);
 
+
+    List<Subscription> findAllById(int userId);
+
+    List<Subscription> findPending();
+
     List<Subscription> findAll();
+
 
     Subscription findById(long id);
 

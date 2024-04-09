@@ -1,6 +1,10 @@
 package dataaccesslayer.subscription.impl;
 
 import dataaccesslayer.DataSource;
+
+import dataaccesslayer.User.UserCookies;
+
+
 import dataaccesslayer.subscription.SubscriptionDao;
 import model.subscription.Subscription;
 
@@ -15,7 +19,11 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     public void add(Subscription subscription) {
 
         try (Connection conn = new DataSource().createConnection();
+
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO subscription (user_id, subscriber_name, email, phone, food_preference_type,location,status) VALUES (?,?,?,?,?,?,'pending')")) {
+
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO subscription (user_id, subscriber_name, email, phone, food_preference_type,location) VALUES (?,?,?,?,?,?)")) {
+
 
             stmt.setLong(1, subscription.getUserId());
             stmt.setString(2, subscription.getSubscriberName());
@@ -62,11 +70,44 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     }
 
     @Override
+
+    public List<Subscription> findAllById(int userId) {
+        List<Subscription> subscriptions = new ArrayList<>();
+        try (Connection conn = new DataSource().createConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM subscription where user_id = " + userId)) {
+
+            while (rs.next()) {
+                Subscription subscription = new Subscription();
+                subscription.setId(rs.getLong("id"));
+                subscription.setUserId(rs.getLong("user_id"));
+                subscription.setSubscriberName(rs.getString("subscriber_name"));
+                subscription.setEmail(rs.getString("email"));
+                subscription.setPhone(rs.getString("phone"));
+                subscription.setFoodPreferenceType(rs.getString("food_preference_type"));
+                subscription.setLocation(rs.getString("location"));
+                subscriptions.add(subscription);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return subscriptions;
+    }
+
+    @Override
+    public List<Subscription> findPending() {
+        List<Subscription> subscriptions = new ArrayList<>();
+        try (Connection conn = new DataSource().createConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM subscription where status = 'pending'")) {
+
     public List<Subscription> findAll() {
         List<Subscription> subscriptions = new ArrayList<>();
         try (Connection conn = new DataSource().createConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM subscription")) {
+
 
             while (rs.next()) {
                 Subscription subscription = new Subscription();
