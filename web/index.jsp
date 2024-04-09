@@ -62,10 +62,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <BR>
         <!-- Choose to sign up or log in -->
         <input type="SUBMIT" name="action" value="login" class='btn btn-primary'>
+        <!--
         <input type="checkbox" id="mode" name="mode">
         <label for="mode">Developer Mode</label>
+        -->
         <br>
-        <p class='text-red-700'>
+        <p class='text-red-700 mt-2'>
             <% if (errorMessage != null) { %>
             <%= errorMessage%>
             <% } %>

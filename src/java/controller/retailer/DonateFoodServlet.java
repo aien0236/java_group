@@ -26,8 +26,19 @@ public class DonateFoodServlet extends HttpServlet {
         System.out.println("in: " + this.getClass().toString());
         FoodsBusinessLogic foodsBusinessLogic = new FoodsBusinessLogic();
         int foodId = Integer.parseInt(req.getParameter("id"));
+        int discountPercent = Integer.parseInt(req.getParameter("discount"));
         // get food from database based on provided id
         Food food = foodsBusinessLogic.getFoodById(foodId);
+        food.setDiscount(discountPercent);
+        // update the discount amount
+        boolean updated = foodsBusinessLogic.updateFood(food);
+        if (!updated) {
+            System.out.println("Error setting the food discount");
+            req.setAttribute("errorMessage", "Failed to set food discount");
+            req.setAttribute("food", food);
+            req.getRequestDispatcher("views/retailer/donateFood.jsp").forward(req, resp);
+        }
+
         // donate the food (set donated to true in database for the food)
         boolean successfullyDonated = foodsBusinessLogic.donateFood(food);
         System.out.println("in: " + this.getClass().toString());

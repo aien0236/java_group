@@ -1,7 +1,10 @@
 package dataaccesslayer.subscription.impl;
 
 import dataaccesslayer.DataSource;
+
 import dataaccesslayer.User.UserCookies;
+
+
 import dataaccesslayer.subscription.SubscriptionDao;
 import model.subscription.Subscription;
 
@@ -16,7 +19,11 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     public void add(Subscription subscription) {
 
         try (Connection conn = new DataSource().createConnection();
+
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO subscription (user_id, subscriber_name, email, phone, food_preference_type,location,status) VALUES (?,?,?,?,?,?,'pending')")) {
+
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO subscription (user_id, subscriber_name, email, phone, food_preference_type,location) VALUES (?,?,?,?,?,?)")) {
+
 
             stmt.setLong(1, subscription.getUserId());
             stmt.setString(2, subscription.getSubscriberName());
@@ -63,6 +70,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     }
 
     @Override
+
     public List<Subscription> findAllById(int userId) {
         List<Subscription> subscriptions = new ArrayList<>();
         try (Connection conn = new DataSource().createConnection();
@@ -93,6 +101,13 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
         try (Connection conn = new DataSource().createConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM subscription where status = 'pending'")) {
+
+    public List<Subscription> findAll() {
+        List<Subscription> subscriptions = new ArrayList<>();
+        try (Connection conn = new DataSource().createConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM subscription")) {
+
 
             while (rs.next()) {
                 Subscription subscription = new Subscription();
