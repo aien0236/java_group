@@ -184,11 +184,17 @@ DROP TABLE IF EXISTS `FWRP`.`alert_log`;
 CREATE TABLE IF NOT EXISTS `FWRP`.`alert_log`
 (
     `id`                   int auto_increment primary key,
+    `user_id`              INT         NOT NULL,
     `user_name`            INT         NOT NULL,
     `email`                VARCHAR(50) NULL,
     `content`              text,
     `food_preference_type` VARCHAR(50) NULL,
-    status                 varchar(255)
+    status                 varchar(255),
+        CONSTRAINT `fk_alert_user`
+        FOREIGN KEY (`user_id`)
+        REFERENCES `FWRP`.`user` (`id`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 )
     ENGINE = InnoDB;
 
