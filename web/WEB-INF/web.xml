@@ -3,8 +3,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <welcome-file-list>
         <welcome-file>
-<!--            views/forum/home.jsp-->
-<!--            views/consumer/home.jsp-->
             index.jsp
         </welcome-file>
     </welcome-file-list>
@@ -93,7 +91,7 @@
         <url-pattern>/forum</url-pattern>
         <url-pattern>/Post</url-pattern>
     </servlet-mapping>
-
+    <!-- Subscription Servlet Routing Table -->
     <servlet>
         <servlet-name>controller.subscription.SubscriptionServlet</servlet-name>
         <servlet-class>controller.subscription.SubscriptionServlet</servlet-class>
@@ -102,16 +100,6 @@
         <servlet-name>controller.subscription.SubscriptionServlet</servlet-name>
         <url-pattern>/SubscriptionServlet/addSub</url-pattern>
     </servlet-mapping>
-
-<!--    <servlet>-->
-<!--        <servlet-name>controller.LoginServlet</servlet-name>-->
-<!--        <servlet-class>controller.LoginServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>controller.LoginServlet</servlet-name>-->
-<!--        <url-pattern>/LoginServlet</url-pattern>-->
-<!--    </servlet-mapping>-->
-
 
     <session-config>
         <session-timeout>

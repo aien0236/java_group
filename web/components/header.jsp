@@ -33,24 +33,14 @@
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
             <li><a href="Forum">Forum</a></li>
-            <li>
-                <details>
-                    <summary>Parent</summary>
-                    <ul class="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                </details>
-            </li>
-            <li><a>Item 3</a></li>
         </ul>
     </div>
     <div class="navbar-end">
 
         <% if (usernameH != null) { %>
-        <a href="/group_code_Web_exploded/LogoutServlet" class="btn">Logout</a>
+        <a href="LogoutServlet" class="btn">Logout</a>
         <% } else { %>
-        <a href="/group_code_Web_exploded/" class="btn">Login</a>
+        <a href="Homepage" class="btn">Login</a>
         <% } %>
 
     </div>

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const cartButton = document.getElementById('cart');
-const cartContainer = document.querySelector('.cart-container');
+const cartContainer = document.querySelector('.container');
 let isCartVisible = false;
 cartButton.addEventListener('click', function() {
     if (isCartVisible) {

@@ -32,7 +32,7 @@ public class FoodDaoImpl {
             con = ds.createConnection();
             pstmt = con.prepareStatement(
                     "SELECT id, food_name, expiration_date, price, discount, foodtype, quantity, retailer_id " +
-                            "FROM retailer_inventory WHERE donated = false");
+                            "FROM retailer_inventory WHERE donated = false and claimed = false");
             rs = pstmt.executeQuery();
             foods = new ArrayList<Food>();
             while (rs.next()) {
