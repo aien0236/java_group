@@ -53,7 +53,10 @@ public class OrganizationServlet extends HttpServlet {
             else if (pageRequest.equals("organizationFoods")) {
                 request.getRequestDispatcher("views/organization/claimedFoods.jsp").forward(request, response);
             }
-
+            // redirect to foodClaims page based on url parameter
+            else if (pageRequest.equals("organizationFoodHistory")) {
+                request.getRequestDispatcher("views/organization/history.jsp").forward(request, response);
+            }
         }
 
 

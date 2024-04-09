@@ -16,12 +16,9 @@ public class SubscriptionBusinessLogic {
         dao.add(Subscription);
     }
 
-
-
-    public List<Subscription> getAllSubscription() {
-        return dao.findAll();
-    }
-
+//    public List<Subscription> getAllSubscription() {
+//        return dao.findAll();
+//    }
 
     public Subscription getSubscriptionById(int subscriptionId) {
         return dao.findById(subscriptionId);

@@ -27,16 +27,12 @@ public class FoodsBusinessLogic {
     public List<Food> getAllFoodsByUserId(int userId) {
         return foodsDao.getAllFoodsByUserId(userId);
     }
-
     public List<Food> organizationGetAllFoodsByUserId(int userId) {
         return foodsDao.organizationGetAllFoodsByUserId(userId);
     }
-
     public List<Food> consumerGetAllFoodsByUserId(int userId) {
         return foodsDao.consumerGetAllFoodsByUserId(userId);
-    }
-
-    public List<Food> getFoodsByType(String foodtype) {
+    }    public List<Food> getFoodsByType(String foodtype) {
         return foodsDao.getFoodsByType(foodtype);
     }
 
@@ -47,7 +43,6 @@ public class FoodsBusinessLogic {
     public boolean addFood(Food food) {
         return foodsDao.addFood(food);
     }
-
     public boolean addFoodForConsumer(Food food) {
         return foodsDao.addFoodForConsumer(food);
     }
@@ -68,12 +63,8 @@ public class FoodsBusinessLogic {
         return foodsDao.claimFoodByOrganization(userId, foodId);
     }
 
-    public boolean claimFood(int foodId, int userId) {
-        return foodsDao.claimFood(foodId, userId);
-    }
-
     public boolean claimFoodByConsumer(int userId, int foodId) {
-        return foodsDao.claimFoodByConsumer(userId, foodId);
+        return foodsDao.claimFoodByOrganization(userId, foodId);
     }
 
 

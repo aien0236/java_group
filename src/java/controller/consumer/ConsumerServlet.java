@@ -51,14 +51,14 @@ public class ConsumerServlet extends HttpServlet {
         List<Food> foods = null;
         List<Food> cart = null;
 
-        String purpose = request.getParameter("purpose");
-        String foodtype = request.getParameter("foodtype");
+        String purpose  = request.getParameter("purpose");
+        String foodtype  = request.getParameter("foodtype");
 
-        if (purpose != null) {
-            switch (purpose) {
+        if (purpose != null){
+            switch (purpose){
                 case "sort-by-food-type":
                     System.out.println(purpose);
-                    switch (foodtype) {
+                    switch (foodtype){
                         case "fruits":
                             System.out.println(foodtype);
                             foods = foodBusinessLogic.getFoodsByType("Fruits & Vegetables");
@@ -99,7 +99,7 @@ public class ConsumerServlet extends HttpServlet {
                     request.getRequestDispatcher("views/consumer/home.jsp").forward(request, response);
                     break;
             }
-        } else {
+        }else {
             request.getRequestDispatcher("views/consumer/home.jsp").forward(request, response);
         }
     }
@@ -129,8 +129,6 @@ public class ConsumerServlet extends HttpServlet {
                 food.setUser_id(userId);
                 // insert the food into the database
                 boolean foodInserted = foodBusinessLogic.addFoodForConsumer(food);
-                // claim the food by the consumer
-                boolean foodClaimed = foodBusinessLogic.claimFood(food.getId(), userId);
             }
         } else {
             System.out.println("No items in the cart.");

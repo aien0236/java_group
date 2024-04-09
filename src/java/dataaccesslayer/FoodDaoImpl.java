@@ -131,7 +131,6 @@ public class FoodDaoImpl {
         return foods;
     }
 
-
     public List<Food> organizationGetAllFoodsByUserId(int userId) {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -735,7 +734,7 @@ public class FoodDaoImpl {
         try {
             DataSource ds = new DataSource();
             con = ds.createConnection();
-            pstmt = con.prepareStatement("UPDATE retailer_inventory SET claimed_by = ?, claimed = TRUE WHERE id = ?");
+            pstmt = con.prepareStatement("UPDATE retailer_inventory SET claimed_by = ? WHERE id = ?");
             pstmt.setInt(1, loggedInUserId);
             pstmt.setInt(2, foodId);
             int rowsAffected = pstmt.executeUpdate();
@@ -759,6 +758,7 @@ public class FoodDaoImpl {
         }
         return claimState;
     }
+
 
 
 }

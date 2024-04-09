@@ -8,8 +8,6 @@ package controller;
 import businesslayer.FoodsBusinessLogic;
 import dataaccesslayer.User.UserCookies;
 import model.food.Food;
-import validation.FoodValidation;
-import validation.Message;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -82,32 +80,21 @@ public class RetailerServlet extends HttpServlet {
         FoodsBusinessLogic foodBusinessLogic = new FoodsBusinessLogic();
         String foodName = "";
         Timestamp expirationDate = null;
-        // set to -1 to avoid null values and for as an error value
-        double price = -1;
-        int discount = -1;
+        double price = 0;
+        int discount = 0;
         String foodtype = "";
-        int quantity = -1;
+        int quantity = 0;
         try {
             // get food parameters
             foodName = request.getParameter("foodName");
             String expirationDateString = request.getParameter("expirationDate");
             expirationDate = Timestamp.valueOf(LocalDateTime.parse(expirationDateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")));
             foodtype = request.getParameter("foodtype");
-            price = Double.parseDouble(request.getParameter("price"));
             quantity = Integer.parseInt(request.getParameter("quantity"));
         } catch (Exception e) {
             request.setAttribute("errorMessage", "Invalid data.sql input: " + e.getMessage());
             doGet(request, response);
         }
-
-        // validate the food
-        Message foodValidationMessage = FoodValidation.validateFood(foodName, price, discount, foodtype, quantity);
-        // check if validation state and redirect back to retailer if false
-        if (!foodValidationMessage.getState()) {
-            request.setAttribute("errorMessage", foodValidationMessage.getValue());
-            request.getRequestDispatcher("RetailerServlet").forward(request, response);
-        }
-
         // create the food item
         Food food = new Food();
         food.setFoodName(foodName);
@@ -122,7 +109,7 @@ public class RetailerServlet extends HttpServlet {
         boolean foodInserted = foodBusinessLogic.addFood(food);
 
 
-        List<Food> foods = foodBusinessLogic.getAllFoodsByUserId(userId);
+        List<Food> foods = foodBusinessLogic.getAllFoods();
         request.setAttribute("foods", foods);
         request.getRequestDispatcher("views/retailer/home.jsp").forward(request, response);
     }
