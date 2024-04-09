@@ -72,18 +72,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         </select>
         <br>
         <p>Already have an account?
-            <a href="index.jsp" class="link link-primary">Log in</a></p>
+            <a href="index.jsp" class="link link-primary">Log in</a>
+        </p>
         <BR>
         <!-- Choose to sign up or log in -->
         <input type="SUBMIT" name="action" value="signup" class='btn btn-primary'>
+        <!--
         <input type="checkbox" id="mode" name="mode">
         <label for="mode">Developer Mode</label>
+        -->
         <br>
-        <p class='text-red-700'>
-            <% if (errorMessage != null) { %>
-            <%= errorMessage%>
-            <% } %>
+        <% if (errorMessage != null) { %>
+        <p class='text-red-700 mt-2'><%= errorMessage%>
         </p>
+        <% } %>
     </FORM>
 </div>
 </body>

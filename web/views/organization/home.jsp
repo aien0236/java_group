@@ -47,13 +47,7 @@
                 Foods
             </div>
         </a>
-        <a href="OrganizationServlet?page=organizationFoodHistory">
-            <div class='btn btn-neutral '>
-                <img src="images/history_icon_white_50.png" alt="kawaii bread icon" width="24" height="24"/>
-                View your
-                Claim History
-            </div>
-        </a>
+
     </div>
 </div>
 </div>

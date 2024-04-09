@@ -77,9 +77,11 @@
 <!-- Header -->
 <%@ include file="../../components/header.jsp" %>
 
+
 <div class="navdiv">
 
     <div class="navitem">
+
         <button id="alert" class="nav-button"><img src="images/iconalert.jpg" alt="list"></button>
         <br>
     </div>
@@ -139,6 +141,20 @@
             </tbody>
         </table>
 
+
+        <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png"
+                                                                                     alt="cart"></a><br>
+    </div>
+
+    <div class="navitem">
+        <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconhome.png"
+                                                                                           alt="cart"></a><br>
+    </div>
+
+    <div class="navitem">
+        <button id="cart" class="nav-button"><img src="images/shopping-cart.png" alt="cart"></button>
+        <br>
+
     </div>
 </div>
 <div id="formContainer" class="hidden">
@@ -160,6 +176,13 @@
             <input type="text" name="phone" placeholder="phone"><br>
             <input type="submit" value="Submit">
 
+<div class="mx-auto max-w-4xl">
+    <div>
+        <div class="btn btn-primary">
+            <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
+        </div>
+    </div>
+</div>
 
         </form>
     </div>
@@ -243,37 +266,65 @@
 </div>
 
 <div id="food-icons">
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2 rounded">
+
         <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button>
         <br>
         <span>Fruits & Vegetables</span>
     </div>
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button>
         <br>
         <span>Fruits & Vegetables</span>
     </div>
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="dairy" class="food-button"><img src="images/icondaily.png" alt="dairy"></button>
         <br>
         <span>Dairy & Eggs</span>
     </div>
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="meat" class="food-button"><img src="images/iconmeat.png" alt="meat"></button>
         <br>
         <span>Meat & Seafood</span>
     </div>
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="grains" class="food-button"><img src="images/icongrains.png" alt="grains"></button>
         <br>
         <span>Grains & Starches</span>
     </div>
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="desserts" class="food-button"><img src="images/icondessert.png" alt="desserts"></button>
         <br>
         <span>Desserts</span>
     </div>
+
     <div class="food-typ">
+
+    <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="other" class="food-button"><img src="images/iconother.png" alt="other"></button>
         <br>
         <span>Other</span>

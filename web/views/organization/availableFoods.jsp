@@ -12,6 +12,9 @@
 <body>
 <%@ include file="../../components/header.jsp" %>
 <div class="mx-auto max-w-4xl">
+    <h1 class='text-3xl font-bold mb-4'>
+        Claim Foods
+    </h1>
 
     <div class="text-sm breadcrumbs mb-8">
         <ul>
@@ -45,6 +48,7 @@
             </li>
         </ul>
     </div>
+
     <div class="overflow-x-auto">
         <table class="table">
             <!-- head -->
