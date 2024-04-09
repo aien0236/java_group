@@ -27,12 +27,16 @@
 
 <div class="navdiv">
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png"
-                                                                                     alt="cart"></a><br>
+        <button>
+            <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png" alt="cart"></a>
+        </button>
+        <span>Market</span>
     </div>
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconhome.png"
-                                                                                           alt="cart"></a><br>
+        <button>
+            <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconinventory.png" alt="cart"></a>
+        </button>
+        <span>Depot</span>
     </div>
 </div>
 

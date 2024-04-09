@@ -39,11 +39,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //
+
         String referer = request.getHeader("Referer");
-        //
-        System.out.println("Referer: " + referer);
-        //
         if (referer != null && referer.endsWith("/Homepage")) {
             System.out.println("To homepage");
             request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -77,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 
         // for debugging
         System.out.println("-----------------------");
-        System.out.println("In LoginServlet line 71");
+        System.out.println("In LoginServlet line 77");
         System.out.println("User Name: " + userName);
         System.out.println("Password: " + password);
         System.out.println("User Type: " + userType);

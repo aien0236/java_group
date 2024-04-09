@@ -78,30 +78,31 @@
 <%@ include file="../../components/header.jsp" %>
 
 <div class="navdiv">
-
     <div class="navitem">
-        <button id="alert" class="nav-button"><img src="images/iconalert.jpg" alt="list"></button>
-        <br>
+        <button id="alert" class="nav-button"><img src="images/iconalert.png" alt="list"></button>
+        <span>Alert</span>
     </div>
-
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=search" id="submit" class="nav-button"><img src="images/iconsub.jpg"
-                                                                                     alt="subscription"></a><br>
+        <button>
+            <a href="ConsumerServlet?purpose=search" id="submit" class="nav-button"><img src="images/iconsubscribe.png" alt="subscription"></a>
+        </button>
+        <span>Subscribe</span>
     </div>
-
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png"
-                                                                                     alt="cart"></a><br>
+        <button>
+            <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png" alt="cart"></a>
+        </button>
+        <span>Market</span>
     </div>
-
     <div class="navitem">
-        <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconhome.png"
-                                                                                           alt="cart"></a><br>
+        <button>
+            <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconinventory.png" alt="cart"></a>
+        </button>
+        <span>Depot</span>
     </div>
-
     <div class="navitem">
         <button id="cart" class="nav-button"><img src="images/shopping-cart.png" alt="cart"></button>
-        <br>
+        <span>Cart</span>
     </div>
 </div>
 
@@ -237,7 +238,7 @@
     </div>
 </div>
 
-<div class="mx-auto max-w-4xl">
+<div class="mx-auto max-w-4xl hidden" >
     <div>
         <div class="btn btn-primary">
             <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
@@ -250,7 +251,7 @@
 <div id="food-icons">
     <div class="food-typ">
         <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button><br>
-        <span>Fruits & Vegetables</span>
+        <span>All</span>
     </div>
     <div class="food-typ">
         <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button><br>
