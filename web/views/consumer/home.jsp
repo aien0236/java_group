@@ -105,69 +105,6 @@
     </div>
 </div>
 
-<div id="contentHidden" class="hidden">
-    <div class="modal-overlay" id="modalOverlayContent"></div>
-    <div class="modal-container" id="listContainer">
-        <table class="table table-borderless">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">username</th>
-                <th scope="col">content</th>
-                <th scope="col">food_type</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for (int i = 0; i < logs.size(); i++) { %>
-            <tr class="<%= Objects.equals(logs.get(i).getStatus(),"") ? "" : "" %>">
-                <form class="foodForm">
-                    <input type="hidden" name="id" value="<%= logs.get(i).getId() %>"/>
-                    <th><input type="hidden" name="number" value="<%= i + 1 %>"/><%= i + 1 %>
-                    </th>
-                    <td><input type="hidden" name="username"
-                               value="<%= logs.get(i).getUsername() %>"/><%= logs.get(i).getUsername()%>
-                    </td>
-                    <td><input type="hidden" name="content"
-                               value="<%= logs.get(i).getContent() %>"/><%= logs.get(i).getContent()%>
-                    </td>
-                    <td><input type="hidden" name="food_type"
-                               value="<%= logs.get(i).getFoodPreferenceType() %>"/><%= logs.get(i).getFoodPreferenceType()%>
-                    </td>
-                </form>
-            </tr>
-            <% } %>
-            </tbody>
-        </table>
-
-    </div>
-</div>
-<div id="formContainer" class="hidden">
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="modal-container" id="modalContainer">
-        <form id="myForm" ACTION="SubscriptionServlet/addSub" method="POST">
-            <!-- Your form fields go here -->
-            <input type="text" name="subscriberName" placeholder="subscriberName"><br>
-            <select name="foodPreferenceType"> <!-- Use select element for selector -->
-                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
-                <option value="Dairy & Eggs">Dairy & Eggs</option>
-                <option value="Meat & Seafood">Meat & Seafood</option>
-                <option value="Grains & Starches">Grains & Starches</option>
-                <option value="Desserts">Desserts</option>
-                <option value="Other">Other</option>
-            </select><br>
-            <input type="text" name="location" placeholder="location"><br>
-            <input type="email" name="email" placeholder="Email"><br>
-            <input type="text" name="phone" placeholder="phone"><br>
-            <input type="submit" value="Submit">
-
-<div class="mx-auto max-w-4xl">
-    <div>
-        <div class="btn btn-primary">
-            <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
-        </div>
-    </div>
-</div>
-
 <div class="container">
     <div class="contentbar">
         <!-- Start row -->
@@ -242,6 +179,74 @@
     </div>
 </div>
 
+<div id="contentHidden" class="hidden">
+    <div class="modal-overlay" id="modalOverlayContent"></div>
+    <div class="modal-container" id="listContainer">
+        <table class="table table-borderless">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">username</th>
+                <th scope="col">content</th>
+                <th scope="col">food_type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (int i = 0; i < logs.size(); i++) { %>
+            <tr class="<%= Objects.equals(logs.get(i).getStatus(),"") ? "" : "" %>">
+                <form class="foodForm">
+                    <input type="hidden" name="id" value="<%= logs.get(i).getId() %>"/>
+                    <th><input type="hidden" name="number" value="<%= i + 1 %>"/><%= i + 1 %>
+                    </th>
+                    <td><input type="hidden" name="username"
+                               value="<%= logs.get(i).getUsername() %>"/><%= logs.get(i).getUsername()%>
+                    </td>
+                    <td><input type="hidden" name="content"
+                               value="<%= logs.get(i).getContent() %>"/><%= logs.get(i).getContent()%>
+                    </td>
+                    <td><input type="hidden" name="food_type"
+                               value="<%= logs.get(i).getFoodPreferenceType() %>"/><%= logs.get(i).getFoodPreferenceType()%>
+                    </td>
+                </form>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div id="formContainer" class="hidden">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-container" id="modalContainer">
+        <form id="myForm" ACTION="SubscriptionServlet/addSub" method="POST">
+            <!-- Your form fields go here -->
+            <input type="text" name="subscriberName" placeholder="subscriberName"><br>
+            <select name="foodPreferenceType"> <!-- Use select element for selector -->
+                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                <option value="Dairy & Eggs">Dairy & Eggs</option>
+                <option value="Meat & Seafood">Meat & Seafood</option>
+                <option value="Grains & Starches">Grains & Starches</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Other">Other</option>
+            </select><br>
+            <input type="text" name="location" placeholder="location"><br>
+            <input type="email" name="email" placeholder="Email"><br>
+            <input type="text" name="phone" placeholder="phone"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+<div class="mx-auto max-w-4xl">
+    <div>
+        <div class="btn btn-primary">
+            <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
+        </div>
+    </div>
+</div>
+
+
+
 <div id="food-icons">
     <div class="food-typ">
         <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button><br>
@@ -310,6 +315,41 @@
         </table>
     </div>
 </div>
+
+<script>
+    document.getElementById("submit").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default navigation behavior
+        // Show the modal overlay and form container
+        document.getElementById("modalOverlay").style.display = "block";
+        document.getElementById("formContainer").classList.remove("hidden");
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === "Escape") {
+            var contentHiddenDiv = document.getElementById("formContainer");
+            contentHiddenDiv.classList.add("hidden"); // Add 'hidden' class to hide the div
+        }
+    });
+
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        document.getElementById("formContainer").classList.add("hidden");
+        alert("Form submitted successfully!");
+    });
+
+    document.getElementById("alert").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default navigation behavior
+        document.getElementById("contentHidden").classList.remove("hidden");
+        document.getElementById("modalOverlayContent").style.display = "block";
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === "Escape") {
+            var contentHiddenDiv = document.getElementById("contentHidden");
+            contentHiddenDiv.classList.add("hidden"); // Add 'hidden' class to hide the div
+        }
+    });
+</script>
 
 </body>
 </html>
