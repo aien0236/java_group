@@ -105,6 +105,14 @@
     </div>
 </div>
 
+<div class="mx-auto max-w-4xl">
+    <div>
+        <div class="btn btn-primary">
+            <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
+        </div>
+    </div>
+</div>
+
 <div id="contentHidden" class="hidden">
     <div class="modal-overlay" id="modalOverlayContent"></div>
     <div class="modal-container" id="listContainer">
@@ -246,7 +254,7 @@
     <div class="food-typ">
         <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button>
         <br>
-        <span>Fruits & Vegetables</span>
+        <span>All</span>
     </div>
     <div class="food-typ">
         <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button>
