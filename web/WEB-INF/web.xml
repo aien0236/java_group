@@ -94,6 +94,16 @@
         <url-pattern>/Post</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>controller.SubscriptionController</servlet-name>
+        <servlet-class>controller.subscription.SubscriptionController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller.SubscriptionController</servlet-name>
+        <url-pattern>/subscription/addSub</url-pattern>
+    </servlet-mapping>
+
+
     <session-config>
         <session-timeout>
             30

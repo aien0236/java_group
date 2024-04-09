@@ -12,6 +12,8 @@ class DataSourceTest {
     @Test
     public void testConnection() {
         try {
+            System.out.printf("");
+
             DataSource ds = new DataSource();
             Connection conn = ds.createConnection();
             assertNotNull(conn, "Connection shouldn't be null");
@@ -20,4 +22,5 @@ class DataSourceTest {
         }
 
     }
+
 }
