@@ -7,6 +7,7 @@
 package model.food;
 
 import java.sql.Timestamp;
+import java.util.Properties;
 
 public class Food {
 
