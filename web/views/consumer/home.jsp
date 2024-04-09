@@ -2,7 +2,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="businesslayer.FoodsBusinessLogic" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.lang.reflect.Array" %><%--
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="model.subscription.Subscription" %>
+<%@ page import="model.subscription.AlertLog" %>
+<%@ page import="java.util.Objects" %>
+<%@ page import="dataaccesslayer.subscription.impl.AlertLogDaoImpl" %><%--
   Created by IntelliJ IDEA.
   User: Benson
   Date: 2024-03-14
@@ -17,6 +21,10 @@
     if (foods == null) {
         foods = foodsBusinessLogic.getAllFoods();
     }
+    List<AlertLog> logs = new ArrayList<>();
+    if (logs.isEmpty()) {
+        logs = new AlertLogDaoImpl().findAll(request);
+    }
 %>
 <html>
 <head>
@@ -30,7 +38,40 @@
     <!-- Added an external JavaScript file with the 'defer' attribute to enable deferred loading -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="views/consumer/scripts/consumer.js" defer></script>
+    <style>
+        /* Hidden class to initially hide the form */
+        .hidden {
+            display: none;
+        }
 
+        #content {
+            display: none; /* Initially hide the content */
+        }
+
+        /* Style for the modal overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+            z-index: 1000; /* Ensure the overlay is above other content */
+            display: none;
+        }
+
+        /* Style for the modal form container */
+        .modal-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff; /* white background */
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1001; /* Ensure the form container is above the overlay */
+        }
+    </style>
 </head>
 <body>
 <!-- Header -->
@@ -38,6 +79,18 @@
 
 
 <div class="navdiv">
+
+    <div class="navitem">
+
+        <button id="alert" class="nav-button"><img src="images/iconalert.jpg" alt="list"></button>
+        <br>
+    </div>
+
+    <div class="navitem">
+        <a href="ConsumerServlet?purpose=search" id="submit" class="nav-button"><img src="images/iconsub.jpg"
+                                                                                     alt="subscription"></a><br>
+    </div>
+
     <div class="navitem">
         <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png"
                                                                                      alt="cart"></a><br>
@@ -54,11 +107,84 @@
     </div>
 </div>
 
+<div id="contentHidden" class="hidden">
+    <div class="modal-overlay" id="modalOverlayContent"></div>
+    <div class="modal-container" id="listContainer">
+        <table class="table table-borderless">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">username</th>
+                <th scope="col">content</th>
+                <th scope="col">food_type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (int i = 0; i < logs.size(); i++) { %>
+            <tr class="<%= Objects.equals(logs.get(i).getStatus(),"") ? "" : "" %>">
+                <form class="foodForm">
+                    <input type="hidden" name="id" value="<%= logs.get(i).getId() %>"/>
+                    <th><input type="hidden" name="number" value="<%= i + 1 %>"/><%= i + 1 %>
+                    </th>
+                    <td><input type="hidden" name="username"
+                               value="<%= logs.get(i).getUsername() %>"/><%= logs.get(i).getUsername()%>
+                    </td>
+                    <td><input type="hidden" name="content"
+                               value="<%= logs.get(i).getContent() %>"/><%= logs.get(i).getContent()%>
+                    </td>
+                    <td><input type="hidden" name="food_type"
+                               value="<%= logs.get(i).getFoodPreferenceType() %>"/><%= logs.get(i).getFoodPreferenceType()%>
+                    </td>
+                </form>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+
+
+        <a href="ConsumerServlet?purpose=search" id="search" class="nav-button"><img src="images/iconsearch.png"
+                                                                                     alt="cart"></a><br>
+    </div>
+
+    <div class="navitem">
+        <a href="ConsumerServlet?purpose=inventory" id="inventory" class="nav-button"><img src="images/iconhome.png"
+                                                                                           alt="cart"></a><br>
+    </div>
+
+    <div class="navitem">
+        <button id="cart" class="nav-button"><img src="images/shopping-cart.png" alt="cart"></button>
+        <br>
+
+    </div>
+</div>
+<div id="formContainer" class="hidden">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-container" id="modalContainer">
+        <form id="myForm" ACTION="SubscriptionServlet/addSub" method="POST">
+            <!-- Your form fields go here -->
+            <input type="text" name="subscriberName" placeholder="subscriberName"><br>
+            <select name="foodPreferenceType"> <!-- Use select element for selector -->
+                <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                <option value="Dairy & Eggs">Dairy & Eggs</option>
+                <option value="Meat & Seafood">Meat & Seafood</option>
+                <option value="Grains & Starches">Grains & Starches</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Other">Other</option>
+            </select><br>
+            <input type="text" name="location" placeholder="location"><br>
+            <input type="email" name="email" placeholder="Email"><br>
+            <input type="text" name="phone" placeholder="phone"><br>
+            <input type="submit" value="Submit">
+
 <div class="mx-auto max-w-4xl">
     <div>
         <div class="btn btn-primary">
             <a href="ConsumerServlet?purpose=inventory">View Your Claimed Foods</a>
         </div>
+    </div>
+</div>
+
+        </form>
     </div>
 </div>
 
@@ -140,37 +266,65 @@
 </div>
 
 <div id="food-icons">
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2 rounded">
+
         <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button>
         <br>
         <span>All</span>
     </div>
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button>
         <br>
         <span>Fruits & Vegetables</span>
     </div>
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="dairy" class="food-button"><img src="images/icondaily.png" alt="dairy"></button>
         <br>
         <span>Dairy & Eggs</span>
     </div>
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="meat" class="food-button"><img src="images/iconmeat.png" alt="meat"></button>
         <br>
         <span>Meat & Seafood</span>
     </div>
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="grains" class="food-button"><img src="images/icongrains.png" alt="grains"></button>
         <br>
         <span>Grains & Starches</span>
     </div>
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="desserts" class="food-button"><img src="images/icondessert.png" alt="desserts"></button>
         <br>
         <span>Desserts</span>
     </div>
+
+    <div class="food-typ">
+
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
+
         <button id="other" class="food-button"><img src="images/iconother.png" alt="other"></button>
         <br>
         <span>Other</span>
@@ -229,6 +383,41 @@
         </table>
     </div>
 </div>
+<script>
+    document.getElementById("submit").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default navigation behavior
+        // Show the modal overlay and form container
+        document.getElementById("modalOverlay").style.display = "block";
+        document.getElementById("formContainer").classList.remove("hidden");
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === "Escape") {
+            var contentHiddenDiv = document.getElementById("formContainer");
+            contentHiddenDiv.classList.add("hidden"); // Add 'hidden' class to hide the div
+        }
+    });
+
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        document.getElementById("formContainer").classList.add("hidden");
+        alert("Form submitted successfully!");
+    });
+
+    document.getElementById("alert").addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default navigation behavior
+        document.getElementById("contentHidden").classList.remove("hidden");
+        document.getElementById("modalOverlayContent").style.display = "block";
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === "Escape") {
+            var contentHiddenDiv = document.getElementById("contentHidden");
+            contentHiddenDiv.classList.add("hidden"); // Add 'hidden' class to hide the div
+        }
+    });
+</script>
+
 
 </body>
 </html>
