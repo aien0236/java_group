@@ -143,7 +143,7 @@
     <div class="food-typ hover:bg-sky-200 transition-all p-2 rounded">
         <button id="all" class="food-button"><img src="images/iconall.png" alt="fruits"></button>
         <br>
-        <span>Fruits & Vegetables</span>
+        <span>All</span>
     </div>
     <div class="food-typ hover:bg-sky-200 transition-all p-2">
         <button id="fruits" class="food-button"><img src="images/iconfruite.png" alt="fruits"></button>
