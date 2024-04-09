@@ -13,7 +13,9 @@ public interface SubscriptionDao {
 
     void delete(long id);
 
-    List<Subscription> findAll();
+    List<Subscription> findAllById(int userId);
+
+    List<Subscription> findPending();
 
     Subscription findById(long id);
 

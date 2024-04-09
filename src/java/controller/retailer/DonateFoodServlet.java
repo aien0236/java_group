@@ -17,6 +17,7 @@ public class DonateFoodServlet extends HttpServlet {
         // get food from database based on url provided id and update request
         Food food = foodsBusinessLogic.getFoodById(foodId);
         req.setAttribute("food", food);
+
         req.getRequestDispatcher("views/retailer/donateFood.jsp").forward(req, resp);
     }
 

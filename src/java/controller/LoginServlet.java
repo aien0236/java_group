@@ -11,6 +11,7 @@ import dataaccesslayer.User.UserCookies;
 import model.food.Food;
 import model.users.User;
 import model.users.UserFactory;
+import schedule.SubSchedule;
 import validation.Message;
 import validation.UserValidation;
 
@@ -61,6 +62,9 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        new SubSchedule(request);
+
+
         UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
         // get parameters
         String userName = request.getParameter("userName");

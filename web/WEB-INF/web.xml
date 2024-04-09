@@ -95,13 +95,22 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>controller.SubscriptionController</servlet-name>
-        <servlet-class>controller.subscription.SubscriptionController</servlet-class>
+        <servlet-name>controller.subscription.SubscriptionServlet</servlet-name>
+        <servlet-class>controller.subscription.SubscriptionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>controller.SubscriptionController</servlet-name>
-        <url-pattern>/subscription/addSub</url-pattern>
+        <servlet-name>controller.subscription.SubscriptionServlet</servlet-name>
+        <url-pattern>/SubscriptionServlet/addSub</url-pattern>
     </servlet-mapping>
+
+<!--    <servlet>-->
+<!--        <servlet-name>controller.LoginServlet</servlet-name>-->
+<!--        <servlet-class>controller.LoginServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>controller.LoginServlet</servlet-name>-->
+<!--        <url-pattern>/LoginServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
 
 
     <session-config>
